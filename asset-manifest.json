@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/stop-banner-frontend/static/css/main.6fa05365.css",
+    "main.js": "/stop-banner-frontend/static/js/main.50e76fa0.js",
+    "static/js/787.f81e0c6a.chunk.js": "/stop-banner-frontend/static/js/787.f81e0c6a.chunk.js",
+    "index.html": "/stop-banner-frontend/index.html",
+    "main.6fa05365.css.map": "/stop-banner-frontend/static/css/main.6fa05365.css.map",
+    "main.50e76fa0.js.map": "/stop-banner-frontend/static/js/main.50e76fa0.js.map",
+    "787.f81e0c6a.chunk.js.map": "/stop-banner-frontend/static/js/787.f81e0c6a.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.6fa05365.css",
+    "static/js/main.50e76fa0.js"
+  ]
+}
