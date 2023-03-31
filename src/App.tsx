@@ -1,6 +1,6 @@
 import React from "react";
 import { NavermapsProvider } from "react-naver-maps";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { HashRouter, Routes, Route } from "react-router-dom";
 import "./App.css";
 
 import FeedPage from "./Pages/FeedPage";
@@ -11,13 +11,13 @@ function App() {
   return (
     <div id="App">
       <NavermapsProvider ncpClientId="4wpduqcu60">
-        <BrowserRouter>
+        <HashRouter>
           <Routes>
             <Route path="/" element={<FeedPage />} />
             <Route path="/login" element={<LoginPage />} />
             <Route path="/report" element={<ReportPage />} />
           </Routes>
-        </BrowserRouter>
+        </HashRouter>
       </NavermapsProvider>
     </div>
   );
