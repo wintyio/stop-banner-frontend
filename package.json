@@ -2,6 +2,7 @@
   "name": "stop-banner",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://wintyio.github.io/stop-banner-frontend/",
   "dependencies": {
     "@reduxjs/toolkit": "^1.9.3",
     "@testing-library/jest-dom": "^5.16.5",
