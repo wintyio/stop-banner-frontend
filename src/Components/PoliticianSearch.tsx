@@ -4,6 +4,7 @@ import { theme } from "../style/theme";
 
 const Input = styled(theme.style.input)`
   width: 100%;
+  box-sizing: border-box;
   padding: 8px 4px;
   border-bottom: 1px solid #787878;
 `;
