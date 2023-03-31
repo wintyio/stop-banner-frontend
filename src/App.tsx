@@ -9,15 +9,17 @@ import ReportPage from "./Pages/ReportPage";
 
 function App() {
   return (
-    <NavermapsProvider ncpClientId="4wpduqcu60">
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<FeedPage />} />
-          <Route path="/login" element={<LoginPage />} />
-          <Route path="/report" element={<ReportPage />} />
-        </Routes>
-      </BrowserRouter>
-    </NavermapsProvider>
+    <div id="App">
+      <NavermapsProvider ncpClientId="4wpduqcu60">
+        <BrowserRouter>
+          <Routes>
+            <Route path="/" element={<FeedPage />} />
+            <Route path="/login" element={<LoginPage />} />
+            <Route path="/report" element={<ReportPage />} />
+          </Routes>
+        </BrowserRouter>
+      </NavermapsProvider>
+    </div>
   );
 }
 

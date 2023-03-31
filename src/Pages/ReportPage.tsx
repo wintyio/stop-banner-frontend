@@ -10,19 +10,26 @@ import { ConfirmButton } from "../Components/ConfirmButton";
 import { PartyButton } from "../Components/PartyButton";
 import { PoliticianSearch } from "../Components/PoliticianSearch";
 
-const Page = styled.div``;
-const MainTitle = styled.h1``;
-const SubTitle = styled.h2``;
+import partyInfos from "../party_info.json";
 
-const partyImgUri =
-  "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e1/People_Power_Party_%28South_Korea%29%2C_signature_1.svg/200px-People_Power_Party_%28South_Korea%29%2C_signature_1.svg.png";
+const Page = styled.div`
+  padding: 44px 20px 65px 20px;
+`;
+const MainTitle = styled.div`
+  font-weight: 700;
+  font-size: 32px;
+`;
+const SubTitle = styled.div`
+  font-weight: 600;
+  font-size: 20px;
+  margin: 40px 0 20px 0;
+`;
 
-const partyInfos = [
-  { name: "국민의 힘", img_uri: partyImgUri },
-  { name: "더불어민주당", img_uri: partyImgUri },
-  { name: "정의당", img_uri: partyImgUri },
-  { name: "기타", img_uri: partyImgUri },
-];
+const PartyButtons = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px 8px;
+`;
 
 let key = 0;
 
@@ -34,20 +41,35 @@ function ReportPage() {
       <MainTitle>제보하기</MainTitle>
 
       <SubTitle>정당</SubTitle>
-      {partyInfos.map((val) => {
-        return (
-          <PartyButton key={key++} name={val.name} img_uri={val.img_uri} />
-        );
-      })}
+      <PartyButtons>
+        {partyInfos.map((val) => {
+          return (
+            <PartyButton key={key++} name={val.name} img_uri={val.img_uri} />
+          );
+        })}
+      </PartyButtons>
 
       <SubTitle>인물</SubTitle>
       <PoliticianSearch />
+      <div
+        style={{ marginTop: 8, paddingLeft: 4, fontSize: 12, color: "#B9B9B9" }}
+      >
+        인물이 표기되지 않은 경우 입력하지 않아도 됩니다.
+      </div>
 
       <SubTitle>사진</SubTitle>
       <BannerImageInput />
 
       <SubTitle>위치</SubTitle>
-      <MapDiv style={{ width: "100%", height: 300, marginBottom: 50 }}>
+      <MapDiv
+        style={{
+          width: "100%",
+          aspectRatio: 320 / 200,
+          marginBottom: 36,
+          border: `1px solid ${"#BCBCBC"}`,
+          borderRadius: 8,
+        }}
+      >
         <NaverMap
           defaultCenter={new navermaps.LatLng(37.3595704, 127.105399)}
           defaultZoom={15}
