@@ -6,10 +6,16 @@ import FeedPage from "./Pages/FeedPage";
 import LoginPage from "./Pages/LoginPage";
 import KakaoRedirectHandler from "./Pages/KakaoRedirectHandler";
 import ReportPage from "./Pages/ReportPage";
+import styled from "styled-components";
+import { theme } from "./style/theme";
+
+const AppDiv = styled.div`
+  color: ${theme.color.black};
+`;
 
 function App() {
   return (
-    <div id="App">
+    <AppDiv id="App">
       <NavermapsProvider ncpClientId="4wpduqcu60">
         <HashRouter>
           <Routes>
@@ -20,7 +26,7 @@ function App() {
           </Routes>
         </HashRouter>
       </NavermapsProvider>
-    </div>
+    </AppDiv>
   );
 }
 
