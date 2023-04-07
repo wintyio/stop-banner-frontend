@@ -1,10 +1,10 @@
-import React from "react";
 import { NavermapsProvider } from "react-naver-maps";
 import { HashRouter, Routes, Route } from "react-router-dom";
 import "./App.css";
 
 import FeedPage from "./Pages/FeedPage";
 import LoginPage from "./Pages/LoginPage";
+import KakaoRedirectHandler from "./Pages/KakaoRedirectHandler";
 import ReportPage from "./Pages/ReportPage";
 
 function App() {
@@ -15,6 +15,7 @@ function App() {
           <Routes>
             <Route path="/" element={<FeedPage />} />
             <Route path="/login" element={<LoginPage />} />
+            <Route path="/login/oauth" element={<KakaoRedirectHandler />} />
             <Route path="/report" element={<ReportPage />} />
           </Routes>
         </HashRouter>
