@@ -8,6 +8,7 @@ import KakaoRedirectHandler from "./Pages/KakaoRedirectHandler";
 import ReportPage from "./Pages/ReportPage";
 import styled from "styled-components";
 import { theme } from "./style/theme";
+import EditNicknamePage from "./Pages/EditNicknamePage";
 
 const AppDiv = styled.div`
   max-width: 700px;
@@ -28,6 +29,7 @@ function App() {
             <Route path="/login" element={<LoginPage />} />
             <Route path="/login/oauth" element={<KakaoRedirectHandler />} />
             <Route path="/report" element={<ReportPage />} />
+            <Route path="/edit/nickname" element={<EditNicknamePage />} />
           </Routes>
         </HashRouter>
       </NavermapsProvider>
