@@ -10,7 +10,12 @@ import styled from "styled-components";
 import { theme } from "./style/theme";
 
 const AppDiv = styled.div`
+  max-width: 700px;
+  min-height: 100vh;
+  margin: 0 auto;
+  font-weight: 500;
   color: ${theme.color.black};
+  border: 1px black solid;
 `;
 
 function App() {
