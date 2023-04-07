@@ -1,4 +1,4 @@
-import { NavermapsProvider } from "react-naver-maps";
+import { useNavermaps } from "react-naver-maps";
 import { HashRouter, Routes, Route } from "react-router-dom";
 import "./App.css";
 
@@ -20,19 +20,22 @@ const AppDiv = styled.div`
 `;
 
 function App() {
+  const navermaps = useNavermaps();
+
   return (
     <AppDiv id="App">
-      <NavermapsProvider ncpClientId="4wpduqcu60">
-        <HashRouter>
-          <Routes>
-            <Route path="/" element={<FeedPage />} />
-            <Route path="/login" element={<LoginPage />} />
-            <Route path="/login/oauth" element={<KakaoRedirectHandler />} />
-            <Route path="/report" element={<ReportPage />} />
-            <Route path="/edit/nickname" element={<EditNicknamePage />} />
-          </Routes>
-        </HashRouter>
-      </NavermapsProvider>
+      <HashRouter>
+        <Routes>
+          <Route path="/" element={<FeedPage />} />
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/login/oauth" element={<KakaoRedirectHandler />} />
+          <Route
+            path="/report"
+            element={<ReportPage navermaps={navermaps} />}
+          />
+          <Route path="/edit/nickname" element={<EditNicknamePage />} />
+        </Routes>
+      </HashRouter>
     </AppDiv>
   );
 }

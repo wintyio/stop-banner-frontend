@@ -1,9 +1,5 @@
-import {
-  Container as MapDiv,
-  NaverMap,
-  NavermapsProvider,
-  useNavermaps,
-} from "react-naver-maps";
+import { useState } from "react";
+import { Container as MapDiv, NaverMap } from "react-naver-maps";
 import styled from "styled-components";
 import { BannerImageInput } from "../Components/BannerImageInput";
 import { ConfirmButton } from "../Components/ConfirmButton";
@@ -33,8 +29,18 @@ const PartyButtons = styled.div`
 
 let key = 0;
 
-function ReportPage() {
-  const navermaps = useNavermaps();
+interface ReportPageProps {
+  navermaps: any;
+}
+
+function ReportPage(props: ReportPageProps) {
+  // const [lat, setLat] = useState(0);
+  // const [lng, setLng] = useState(0);
+
+  // navigator.geolocation.getCurrentPosition((coord) => {
+  //   setLat(coord.coords.latitude);
+  //   setLat(coord.coords.longitude);
+  // });
 
   return (
     <Page>
@@ -70,10 +76,15 @@ function ReportPage() {
           borderRadius: 8,
         }}
       >
+        {/* {lat != 0 && ( */}
         <NaverMap
-          defaultCenter={new navermaps.LatLng(37.3595704, 127.105399)}
+          // defaultCenter={new props.navermaps.LatLng(lat, lng)}
           defaultZoom={15}
+          onCenterChanged={(coord) => {
+            console.log(coord);
+          }}
         />
+        {/* )} */}
       </MapDiv>
 
       <ConfirmButton />
