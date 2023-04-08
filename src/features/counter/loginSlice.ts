@@ -25,7 +25,7 @@ export const kakaoLoginAsync = createAsyncThunk(
   "login/kakaoLogin",
   async () => {
     window.Kakao.Auth.authorize({
-      redirectUri: window.location.protocol + "//" + window.location.host + "/" + "stop-banner-frontend/",
+      redirectUri: window.location.protocol + "//" + window.location.host + "/stop-banner-frontend/",
     })
   }
 );
@@ -34,9 +34,10 @@ export const getKakaoAccessTokenAsync = createAsyncThunk(
   "login/kakaoAccessToken",
   async (code: string) => {
     let grant_type = "authorization_code";
+    let redirectUri = window.location.protocol + "//" + window.location.host + "/stop-banner-frontend/";
     let client_id = "b76f1c8406260f4ffdafd2f02f05222e"; // REST API KEY
 
-    let url = `https://kauth.kakao.com/oauth/token?grant_type=${grant_type}&client_id=${client_id}&redirect_uri=${"http://localhost:3000/stop-banner-frontend/"}&code=${code}`;
+    let url = `https://kauth.kakao.com/oauth/token?grant_type=${grant_type}&client_id=${client_id}&redirect_uri=${redirectUri}&code=${code}`;
     let data = {
       headers: {
         "Content-type": "application/x-www-form-urlencoded;charset=utf-8",

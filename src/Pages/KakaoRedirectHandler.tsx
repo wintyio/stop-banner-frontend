@@ -12,7 +12,9 @@ const KakaoRedirectHandler = () => {
 
   useEffect(() => {
     let params = new URL(document.location.toString()).searchParams;
-    let code = params.get("code") || "";
+    let code = params.get("code");
+
+    if (!code) return;
 
     dispatch(getKakaoAccessTokenAsync(code));
   });
