@@ -52,7 +52,7 @@ export default function TopBar(props: TopBarProps) {
         피드
       </Button>
       <Button
-        onClick={() => navigate("/")}
+        onClick={() => navigate("/statistic")}
         selected={props.selectedPageName == "통계"}
       >
         통계

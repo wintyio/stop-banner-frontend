@@ -3,10 +3,11 @@ import { HashRouter, Routes, Route } from "react-router-dom";
 import "./App.css";
 
 import FeedPage from "./Pages/FeedPage";
-import LoginPage from "./Pages/LoginPage";
-import KakaoRedirectHandler from "./Pages/KakaoRedirectHandler";
+import StatisticPage from "./Pages/StatisticPage";
 import ReportPage from "./Pages/ReportPage";
 import EditNicknamePage from "./Pages/EditNicknamePage";
+import LoginPage from "./Pages/LoginPage";
+import KakaoRedirectHandler from "./Pages/KakaoRedirectHandler";
 
 import persistStore from "redux-persist/es/persistStore";
 import { PersistGate } from "redux-persist/integration/react";
@@ -35,6 +36,7 @@ function App() {
         <PersistGate persistor={persistor}>
           <Routes>
             <Route path="/" element={<FeedPage />} />
+            <Route path="/statistic" element={<StatisticPage />} />
             <Route path="/login" element={<LoginPage />} />
             <Route path="/login/oauth" element={<KakaoRedirectHandler />} />
             <Route
