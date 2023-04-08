@@ -7,10 +7,18 @@ let color = {
     gray2: "#C3C3C7",
 };
 
+interface Padding {
+    paddingTop?: number;
+    paddingBottom?: number;
+}
+
 let style = {
-    contentDiv: styled.div`
+    page: styled.div`
+        position: relative;
         min-height: inherit;
         padding: 0 20px;
+        padding-top: ${(props: Padding) => props.paddingTop + "px" || "0"};
+        padding-bottom: ${(props: Padding) => props.paddingBottom + "px" || "0"};
     `,
     button: styled.div`
         border-radius: 4px;

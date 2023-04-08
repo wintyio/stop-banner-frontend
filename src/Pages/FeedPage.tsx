@@ -12,7 +12,7 @@ function FeedPage() {
   });
 
   return (
-    <theme.style.contentDiv>
+    <theme.style.page>
       <TopBar selectedPageName="피드" />
       <button
         onClick={() => {
@@ -21,7 +21,7 @@ function FeedPage() {
       >
         login
       </button>
-    </theme.style.contentDiv>
+    </theme.style.page>
   );
 }
 

@@ -3,11 +3,10 @@ import { useAppDispatch } from "../app/hooks";
 import { kakaoLoginAsync } from "../features/counter/loginSlice";
 import { theme } from "../style/theme";
 
-const ContentDiv = styled(theme.style.contentDiv)`
-  position: relative;
+const Page = styled(theme.style.page)`
   display: flex;
-  box-sizing: border-box;
   flex-direction: column;
+  box-sizing: border-box;
   padding-top: 160px;
   padding-bottom: 73px;
 `;
@@ -23,11 +22,8 @@ const Description = styled.div`
   font-size: 20px;
 `;
 
-const LoginButton = styled(theme.style.button)`
-  display: flex;
-  padding: 13px 0;
-  justify-content: center;
-  font-size: 16px;
+const LoginButton = styled(theme.style.defaultButton)`
+  color: ${theme.color.black};
   background-color: #fee500;
 `;
 
@@ -35,7 +31,7 @@ function LoginPage() {
   const dispatch = useAppDispatch();
 
   return (
-    <ContentDiv>
+    <Page>
       <div>
         <Title>현수막 헌터</Title>
         <Description>서비스 설명입니다.</Description>
@@ -46,7 +42,7 @@ function LoginPage() {
       <LoginButton onClick={() => dispatch(kakaoLoginAsync())}>
         <span>카카오로 시작하기</span>
       </LoginButton>
-    </ContentDiv>
+    </Page>
   );
 }
 

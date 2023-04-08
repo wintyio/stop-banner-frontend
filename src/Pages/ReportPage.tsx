@@ -1,20 +1,18 @@
-import { useState } from "react";
 import { Container as MapDiv, NaverMap } from "react-naver-maps";
 import styled from "styled-components";
 import { BannerImageInput } from "../Components/BannerImageInput";
-import { ConfirmButton } from "../Components/ConfirmButton";
 import { PartyButton } from "../Components/PartyButton";
 import { PoliticianSearch } from "../Components/PoliticianSearch";
 
 import partyInfos from "../party_info.json";
+import TopBar from "../Components/TopBar";
+import { theme } from "../style/theme";
 
-const Page = styled.div`
-  padding: 44px 20px 65px 20px;
-`;
 const MainTitle = styled.div`
   font-weight: 700;
   font-size: 32px;
 `;
+
 const SubTitle = styled.div`
   font-weight: 600;
   font-size: 20px;
@@ -43,7 +41,9 @@ function ReportPage(props: ReportPageProps) {
   // });
 
   return (
-    <Page>
+    <theme.style.page paddingBottom={65}>
+      <TopBar selectedPageName="제보하기" />
+
       <MainTitle>제보하기</MainTitle>
 
       <SubTitle>정당</SubTitle>
@@ -87,8 +87,8 @@ function ReportPage(props: ReportPageProps) {
         {/* )} */}
       </MapDiv>
 
-      <ConfirmButton />
-    </Page>
+      <theme.style.defaultButton>올리기</theme.style.defaultButton>
+    </theme.style.page>
   );
 }
 

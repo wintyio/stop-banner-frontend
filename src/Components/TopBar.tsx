@@ -4,6 +4,7 @@ import { theme } from "../style/theme";
 
 const ContentDiv = styled.div`
   margin-top: 44px;
+  margin-bottom: 32px;
 `;
 
 interface ButtonProps {
