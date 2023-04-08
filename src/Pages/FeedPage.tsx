@@ -5,22 +5,16 @@ import { theme } from "../style/theme";
 
 function FeedPage() {
   const code = new URL(window.location.href).searchParams.get("code");
-  const navigate = useNavigate();
 
   useEffect(() => {
     if (code && code.length > 1) navigate("/login/oauth");
   });
 
+  const navigate = useNavigate();
+
   return (
     <theme.style.page>
       <TopBar selectedPageName="피드" />
-      <button
-        onClick={() => {
-          navigate("/login");
-        }}
-      >
-        login
-      </button>
     </theme.style.page>
   );
 }

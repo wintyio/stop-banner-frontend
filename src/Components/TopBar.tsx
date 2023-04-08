@@ -1,6 +1,8 @@
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { theme } from "../style/theme";
+import { useAppSelector } from "../app/hooks";
+import { selectLoginStatus } from "../features/counter/loginSlice";
 
 const ContentDiv = styled.div`
   margin-top: 44px;
@@ -30,6 +32,17 @@ interface TopBarProps {
 export default function TopBar(props: TopBarProps) {
   const navigate = useNavigate();
 
+  const loginStatus = useAppSelector(selectLoginStatus);
+
+  const checkLogin = function () {
+    console.log(loginStatus);
+
+    let check = loginStatus === "logged in";
+    console.log(check);
+
+    return check;
+  };
+
   return (
     <ContentDiv>
       <Button
@@ -45,13 +58,17 @@ export default function TopBar(props: TopBarProps) {
         통계
       </Button>
       <Button
-        onClick={() => navigate("/report")}
+        onClick={() =>
+          checkLogin() ? navigate("/report") : navigate("/login")
+        }
         selected={props.selectedPageName == "제보하기"}
       >
         제보하기
       </Button>
       <Button
-        onClick={() => navigate("/edit/nickname")}
+        onClick={() =>
+          checkLogin() ? navigate("/edit/nickname") : navigate("/login")
+        }
         selected={props.selectedPageName == "MY"}
       >
         MY

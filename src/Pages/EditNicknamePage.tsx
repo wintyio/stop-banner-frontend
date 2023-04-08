@@ -1,6 +1,8 @@
 import styled from "styled-components";
 import { theme } from "../style/theme";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { logout } from "../features/counter/loginSlice";
 
 const Page = styled(theme.style.page)`
   display: flex;
@@ -17,6 +19,7 @@ const Title = styled.div`
 `;
 
 export default function EditNicknamePage() {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   return (
@@ -36,7 +39,17 @@ export default function EditNicknamePage() {
       <theme.style.flexOne />
 
       <theme.style.defaultButton onClick={() => navigate("/")}>
-        <span>시작하기</span>
+        <span>변경하기</span>
+      </theme.style.defaultButton>
+
+      <theme.style.defaultButton
+        style={{ marginTop: 20 }}
+        onClick={() => {
+          dispatch(logout());
+          navigate("/");
+        }}
+      >
+        로그아웃
       </theme.style.defaultButton>
     </Page>
   );

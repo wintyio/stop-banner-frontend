@@ -6,9 +6,14 @@ import FeedPage from "./Pages/FeedPage";
 import LoginPage from "./Pages/LoginPage";
 import KakaoRedirectHandler from "./Pages/KakaoRedirectHandler";
 import ReportPage from "./Pages/ReportPage";
+import EditNicknamePage from "./Pages/EditNicknamePage";
+
+import persistStore from "redux-persist/es/persistStore";
+import { PersistGate } from "redux-persist/integration/react";
+import { store } from "./app/store";
+
 import styled from "styled-components";
 import { theme } from "./style/theme";
-import EditNicknamePage from "./Pages/EditNicknamePage";
 
 const AppDiv = styled.div`
   max-width: 700px;
@@ -19,22 +24,26 @@ const AppDiv = styled.div`
   border: 1px black solid;
 `;
 
+const persistor = persistStore(store);
+
 function App() {
   const navermaps = useNavermaps();
 
   return (
     <AppDiv id="App">
       <HashRouter>
-        <Routes>
-          <Route path="/" element={<FeedPage />} />
-          <Route path="/login" element={<LoginPage />} />
-          <Route path="/login/oauth" element={<KakaoRedirectHandler />} />
-          <Route
-            path="/report"
-            element={<ReportPage navermaps={navermaps} />}
-          />
-          <Route path="/edit/nickname" element={<EditNicknamePage />} />
-        </Routes>
+        <PersistGate persistor={persistor}>
+          <Routes>
+            <Route path="/" element={<FeedPage />} />
+            <Route path="/login" element={<LoginPage />} />
+            <Route path="/login/oauth" element={<KakaoRedirectHandler />} />
+            <Route
+              path="/report"
+              element={<ReportPage navermaps={navermaps} />}
+            />
+            <Route path="/edit/nickname" element={<EditNicknamePage />} />
+          </Routes>
+        </PersistGate>
       </HashRouter>
     </AppDiv>
   );
