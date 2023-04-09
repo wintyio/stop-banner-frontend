@@ -1,6 +1,7 @@
 import { useState } from "react";
 import styled from "styled-components";
 import { isString } from "util";
+import { theme } from "../style/theme";
 
 const Button = styled.div`
   display: flex;
@@ -15,16 +16,14 @@ const Button = styled.div`
 
   font-size: 14px;
 
-  border: 1px solid #bcbcbc;
-  border-radius: 8px;
+  ${theme.style.defaultBorder}
 `;
 
 const ImageViewer = styled.img`
   width: 100%;
   box-sizing: border-box;
 
-  border: 1px solid #bcbcbc;
-  border-radius: 8px;
+  ${theme.style.defaultBorder}
 `;
 
 const Input = styled.input`

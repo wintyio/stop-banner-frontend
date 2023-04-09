@@ -5,19 +5,8 @@ import { PartyButton } from "../Components/PartyButton";
 import { PoliticianSearch } from "../Components/PoliticianSearch";
 
 import partyInfos from "../party_info.json";
-import TopBar from "../Components/TopBar";
+import TopMenuBar from "../Components/TopMenuBar";
 import { theme } from "../style/theme";
-
-const MainTitle = styled.div`
-  font-weight: 700;
-  font-size: 32px;
-`;
-
-const SubTitle = styled.div`
-  font-weight: 600;
-  font-size: 20px;
-  margin: 40px 0 20px 0;
-`;
 
 const PartyButtons = styled.div`
   display: flex;
@@ -27,11 +16,11 @@ const PartyButtons = styled.div`
 
 let key = 0;
 
-interface ReportPageProps {
+interface ReportBannerPageProps {
   navermaps: any;
 }
 
-function ReportPage(props: ReportPageProps) {
+function ReportBannerPage(props: ReportBannerPageProps) {
   // const [lat, setLat] = useState(0);
   // const [lng, setLng] = useState(0);
 
@@ -42,11 +31,9 @@ function ReportPage(props: ReportPageProps) {
 
   return (
     <theme.style.page paddingBottom={65}>
-      <TopBar selectedPageName="제보하기" />
+      <TopMenuBar selectedPageName="제보하기" />
 
-      <MainTitle>제보하기</MainTitle>
-
-      <SubTitle>정당</SubTitle>
+      <theme.style.subTitle>정당</theme.style.subTitle>
       <PartyButtons>
         {partyInfos.map((val) => {
           return (
@@ -55,7 +42,7 @@ function ReportPage(props: ReportPageProps) {
         })}
       </PartyButtons>
 
-      <SubTitle>인물</SubTitle>
+      <theme.style.subTitle>인물</theme.style.subTitle>
       <PoliticianSearch />
       <div
         style={{ marginTop: 8, paddingLeft: 4, fontSize: 12, color: "#B9B9B9" }}
@@ -63,16 +50,16 @@ function ReportPage(props: ReportPageProps) {
         인물이 표기되지 않은 경우 입력하지 않아도 됩니다.
       </div>
 
-      <SubTitle>사진</SubTitle>
+      <theme.style.subTitle>사진</theme.style.subTitle>
       <BannerImageInput />
 
-      <SubTitle>위치</SubTitle>
+      <theme.style.subTitle>위치</theme.style.subTitle>
       <MapDiv
         style={{
           width: "100%",
           aspectRatio: 320 / 200,
           marginBottom: 36,
-          border: `1px solid ${"#BCBCBC"}`,
+          border: `1px solid ${theme.color.black}`,
           borderRadius: 8,
         }}
       >
@@ -92,4 +79,4 @@ function ReportPage(props: ReportPageProps) {
   );
 }
 
-export default ReportPage;
+export default ReportBannerPage;

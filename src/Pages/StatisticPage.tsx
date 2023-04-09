@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import TopBar from "../Components/TopBar";
+import TopMenuBar from "../Components/TopMenuBar";
 import { theme } from "../style/theme";
 import { Feed, FeedInfo } from "../Components/Feed";
 import { PieChart } from "react-minimal-pie-chart";
@@ -109,7 +109,7 @@ export default function StatisticPage() {
       style={{ fontSize: 20, fontWeight: 600 }}
       paddingBottom={67}
     >
-      <TopBar selectedPageName="통계" />
+      <TopMenuBar selectedPageName="통계" />
 
       <SubTitle>정당별</SubTitle>
 

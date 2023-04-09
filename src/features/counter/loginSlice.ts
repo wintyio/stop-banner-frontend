@@ -67,8 +67,8 @@ export const loginSlice = createSlice({
         console.log("logging");
       })
       .addCase(kakaoLoginAsync.fulfilled, (state, action) => {
-        state.status = "logged in";
-        console.log("logged in");
+        // state.status = "logged in";
+        // console.log("logged in");
       })
       .addCase(kakaoLoginAsync.rejected, (state) => {
         state.status = "failed";

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import TopBar from "../Components/TopBar";
+import TopMenuBar from "../Components/TopMenuBar";
 import { theme } from "../style/theme";
 import { Feed, FeedInfo } from "../Components/Feed";
 import styled, { keyframes } from "styled-components";
@@ -38,6 +38,7 @@ function FeedPage() {
 
   const navigate = useNavigate();
   const f = new FeedInfo(
+    1,
     "홍길동",
     "국민의힘",
     "경기도 시흥시 시청로 20",
@@ -50,7 +51,7 @@ function FeedPage() {
     <theme.style.page>
       {loading && <LoginLoadingDiv>로그인 중..</LoginLoadingDiv>}
 
-      <TopBar selectedPageName="피드" />
+      <TopMenuBar selectedPageName="피드" />
 
       <Feed feedInfo={f} />
       <Feed feedInfo={f} />

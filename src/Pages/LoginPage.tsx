@@ -2,6 +2,7 @@ import styled from "styled-components";
 import { useAppDispatch } from "../app/hooks";
 import { kakaoLoginAsync } from "../features/counter/loginSlice";
 import { theme } from "../style/theme";
+import { RiKakaoTalkFill } from "react-icons/ri";
 
 const Page = styled(theme.style.page)`
   display: flex;
@@ -23,6 +24,9 @@ const Description = styled.div`
 `;
 
 const LoginButton = styled(theme.style.defaultButton)`
+  display: flex;
+  align-items: center;
+  justify-content: center;
   color: ${theme.color.black};
   background-color: #fee500;
 `;
@@ -40,6 +44,7 @@ function LoginPage() {
       <theme.style.flexOne />
 
       <LoginButton onClick={() => dispatch(kakaoLoginAsync())}>
+        <RiKakaoTalkFill style={{ marginRight: 10 }} />
         <span>카카오로 시작하기</span>
       </LoginButton>
     </Page>

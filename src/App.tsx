@@ -4,7 +4,7 @@ import "./App.css";
 
 import FeedPage from "./Pages/FeedPage";
 import StatisticPage from "./Pages/StatisticPage";
-import ReportPage from "./Pages/ReportPage";
+import ReportBannerPage from "./Pages/ReportBannerPage";
 import EditNicknamePage from "./Pages/EditNicknamePage";
 import LoginPage from "./Pages/LoginPage";
 import KakaoRedirectHandler from "./Pages/KakaoRedirectHandler";
@@ -15,10 +15,12 @@ import { store } from "./app/store";
 
 import styled from "styled-components";
 import { theme } from "./style/theme";
+import { useEffect } from "react";
+import ReportArticlePage from "./Pages/ReportArticlePage";
 
 const AppDiv = styled.div`
   max-width: 700px;
-  min-height: 100vh;
+  min-height: calc(var(--vh, 1vh) * 100);
   margin: 0 auto;
   font-weight: 500;
   color: ${theme.color.black};
@@ -27,8 +29,17 @@ const AppDiv = styled.div`
 
 const persistor = persistStore(store);
 
+function setScreenSize() {
+  let vh = window.innerHeight * 0.01;
+  document.documentElement.style.setProperty("--vh", `${vh}px`); //"--vh"라는 속성으로 정의해준다.
+}
+
+window.addEventListener("resize", () => setScreenSize());
+
 function App() {
   const navermaps = useNavermaps();
+
+  useEffect(() => setScreenSize());
 
   return (
     <AppDiv id="App">
@@ -40,9 +51,10 @@ function App() {
             <Route path="/login" element={<LoginPage />} />
             <Route path="/login/oauth" element={<KakaoRedirectHandler />} />
             <Route
-              path="/report"
-              element={<ReportPage navermaps={navermaps} />}
+              path="/report/banner"
+              element={<ReportBannerPage navermaps={navermaps} />}
             />
+            <Route path="/report/article" element={<ReportArticlePage />} />
             <Route path="/edit/nickname" element={<EditNicknamePage />} />
           </Routes>
         </PersistGate>

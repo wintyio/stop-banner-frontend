@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
 let color = {
     white: "#FFFFFF",
@@ -44,6 +44,15 @@ let style = {
     flexOne: styled.div`
         flex: 1;
     `,
+    subTitle: styled.div`
+        font-weight: 600;
+        font-size: 20px;
+        margin: 40px 0 20px 0;
+    `,
+    defaultBorder: css`
+        border: 1px solid ${color.black};
+        border-radius: 8px;
+    `
 };
 
 style.searchInput = styled(style.input)`

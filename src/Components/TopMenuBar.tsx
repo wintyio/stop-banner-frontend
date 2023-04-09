@@ -25,11 +25,11 @@ const Button = styled.span`
   cursor: pointer;
 `;
 
-interface TopBarProps {
+interface TopMenuBarProps {
   selectedPageName: string;
 }
 
-export default function TopBar(props: TopBarProps) {
+export default function TopMenuBar(props: TopMenuBarProps) {
   const navigate = useNavigate();
 
   const loginStatus = useAppSelector(selectLoginStatus);
@@ -59,7 +59,7 @@ export default function TopBar(props: TopBarProps) {
       </Button>
       <Button
         onClick={() =>
-          checkLogin() ? navigate("/report") : navigate("/login")
+          checkLogin() ? navigate("/report/banner") : navigate("/login")
         }
         selected={props.selectedPageName == "제보하기"}
       >
