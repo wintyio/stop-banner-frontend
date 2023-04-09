@@ -40,9 +40,16 @@ let style = {
             outline: none;
         }
     `,
-    searchInput: styled.input``,
+    searchInput: styled.input`
+        /* 아래에 구현 */
+    `,
     flexOne: styled.div`
         flex: 1;
+    `,
+    mainTitle: styled.div`
+        margin-bottom: 17px;
+        font-size: 26px;
+        font-weight: 700;
     `,
     subTitle: styled.div`
         font-weight: 600;
@@ -59,7 +66,8 @@ style.searchInput = styled(style.input)`
     width: 100%;
     box-sizing: border-box;
     padding: 8px 4px;
-    font-size: 20px;
+    font-size: 16px;
+    font-weight: 400;
     border-bottom: 1px solid #787878;
 `;
 

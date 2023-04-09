@@ -12,12 +12,6 @@ const Page = styled(theme.style.page)`
   padding-bottom: 73px;
 `;
 
-const Title = styled.div`
-  margin-bottom: 17px;
-  font-size: 36px;
-  font-weight: 700;
-`;
-
 export default function EditNicknamePage() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -25,7 +19,7 @@ export default function EditNicknamePage() {
   return (
     <Page>
       <div>
-        <Title>닉네임 설정</Title>
+        <theme.style.mainTitle>닉네임 설정</theme.style.mainTitle>
       </div>
 
       <theme.style.flexOne />

@@ -12,15 +12,9 @@ const Page = styled(theme.style.page)`
   padding-bottom: 73px;
 `;
 
-const Title = styled.div`
-  margin-bottom: 17px;
-  font-size: 36px;
-  font-weight: 700;
-`;
-
 const Description = styled.div`
   margin-bottom: 17px;
-  font-size: 20px;
+  font-size: 16px;
 `;
 
 const LoginButton = styled(theme.style.defaultButton)`
@@ -37,7 +31,7 @@ function LoginPage() {
   return (
     <Page>
       <div>
-        <Title>현수막 헌터</Title>
+        <theme.style.mainTitle>현수막 헌터</theme.style.mainTitle>
         <Description>서비스 설명입니다.</Description>
       </div>
 
