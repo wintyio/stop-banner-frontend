@@ -2,6 +2,13 @@ import { useState } from "react";
 import styled from "styled-components";
 import { isString } from "util";
 import { theme } from "../style/theme";
+import exifr from "exifr";
+import { useAppDispatch, useAppSelector } from "../app/hooks";
+import {
+  selectImage,
+  setImage,
+  setLocation,
+} from "../features/counter/reportBannerSlice";
 
 const Button = styled.div`
   display: flex;
@@ -31,11 +38,12 @@ const Input = styled.input`
 `;
 
 export function BannerImageInput() {
-  const [img, setImg] = useState("");
+  const dispatch = useAppDispatch();
+  const image = useAppSelector(selectImage);
 
   return (
     <div>
-      {!img && (
+      {!image && (
         <label htmlFor="banner_image_input">
           <Button>
             <div style={{ fontSize: 40 }}>+</div>
@@ -44,7 +52,7 @@ export function BannerImageInput() {
         </label>
       )}
 
-      {img && (
+      {image && (
         <label
           htmlFor="banner_image_input"
           onClick={(event) => {
@@ -52,7 +60,7 @@ export function BannerImageInput() {
               event.preventDefault();
           }}
         >
-          <ImageViewer src={img} />
+          <ImageViewer src={image} />
         </label>
       )}
 
@@ -60,14 +68,25 @@ export function BannerImageInput() {
         id="banner_image_input"
         type="file"
         accept="image/png, image/gif, image/jpeg"
-        onChange={(event) => {
+        onChange={async (event) => {
           let file = event.target.files;
           if (!file || file.length == 0) return;
 
           let reader = new FileReader();
           reader.readAsDataURL(file[0]);
-          reader.onload = () => {
-            if (isString(reader.result)) setImg(reader.result);
+          reader.onload = async () => {
+            window.Kakao = reader.result;
+            if (isString(reader.result)) dispatch(setImage(reader.result));
+
+            try {
+              let result = reader.result as ArrayBuffer;
+              let { latitude, longitude } = await exifr.gps(result);
+              dispatch(setLocation([latitude, longitude]));
+            } catch {
+              window.confirm(
+                "사진에 위치 데이터가 없어, 위치를 직접 입력해주셔야 합니다."
+              );
+            }
           };
         }}
       />

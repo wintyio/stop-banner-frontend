@@ -4,18 +4,20 @@ import loginReducer from '../features/counter/loginSlice';
 import storage from 'redux-persist/lib/storage';
 import { combineReducers } from 'redux';
 import { persistReducer } from 'redux-persist';
+import reportBannerSlice from '../features/counter/reportBannerSlice';
 
 const reducers = combineReducers({
   counter: counterReducer,
-  login: loginReducer
+  login: loginReducer,
+  reportBanner: reportBannerSlice
 });
 
 const persistConfig = {
   key: 'root',
-  storage
+  storage,
 }
 
-const persistedReducer = persistReducer(persistConfig, reducers);
+const persistedReducer = persistReducer({ ...persistConfig, blacklist: ["reportBanner"] }, reducers);
 
 export const store = configureStore({
   reducer: persistedReducer,
