@@ -79,6 +79,8 @@ export const loginSlice = createSlice({
   reducers: {
     logout: (state) => {
       state.status = "none";
+      state.kakaoAccessToken = "";
+      state.wintyAccessToken = "";
     }
   },
   extraReducers: (builder) => {

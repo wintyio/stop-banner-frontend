@@ -5,6 +5,7 @@ import storage from 'redux-persist/lib/storage';
 import { combineReducers } from 'redux';
 import { persistReducer } from 'redux-persist';
 import reportBannerSlice from '../features/counter/reportBannerSlice';
+import { encryptTransform } from 'redux-persist-transform-encrypt';
 
 const reducers = combineReducers({
   counter: counterReducer,
@@ -17,7 +18,11 @@ const persistConfig = {
   storage,
 }
 
-const persistedReducer = persistReducer({ ...persistConfig, blacklist: ["reportBanner"] }, reducers);
+const persistedReducer = persistReducer({
+  ...persistConfig,
+  blacklist: ["reportBanner"],
+  transforms: [encryptTransform({ secretKey: "winty" })]
+}, reducers);
 
 export const store = configureStore({
   reducer: persistedReducer,
