@@ -1,36 +1,52 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "../app/hooks";
 import {
   getKakaoAccessTokenAsync,
+  getWintyAccessTokenAsync,
   selectKakaoAccessToken,
+  selectLoginErrMsg,
+  selectLoginStatus,
 } from "../features/counter/loginSlice";
-import { theme } from "../style/theme";
 
 const KakaoRedirectHandler = () => {
-  const kakaoAccessToken = useAppSelector(selectKakaoAccessToken);
   const dispatch = useAppDispatch();
 
-  useEffect(() => {
+  const failedLogin = (errMsg: string) => {
+    window.confirm(`로그인 실패: ${errMsg}`);
+    window.location.href = "./";
+  };
+
+  const loginProcess = async () => {
     let params = new URL(document.location.toString()).searchParams;
     let code = params.get("code");
 
     if (!code) return;
 
-    dispatch(getKakaoAccessTokenAsync(code));
-  });
+    // 카카오 엑세스 토큰 가져오기
+    let kakaoAsyncAction = await dispatch(getKakaoAccessTokenAsync(code)); //.unwrap();
+    let kakaoAccessToken;
 
-  return (
-    <div>
-      <div>kakao login 완료: {kakaoAccessToken}</div>
-      <theme.style.defaultButton
-        onClick={() => {
-          window.location.href = "./";
-        }}
-      >
-        피드로 이동
-      </theme.style.defaultButton>
-    </div>
-  );
+    if (getKakaoAccessTokenAsync.fulfilled.match(kakaoAsyncAction))
+      kakaoAccessToken = kakaoAsyncAction.payload;
+    else failedLogin("카카오 엑세스 토큰 획득 실패");
+
+    // 윈티 엑세스 토큰 가져오기
+    let wintyAccessToken = await dispatch(
+      getWintyAccessTokenAsync(kakaoAccessToken)
+    );
+
+    if (getWintyAccessTokenAsync.fulfilled.match(wintyAccessToken))
+      window.location.href = "./";
+    else failedLogin("윈티 엑세스 토큰 획득 실패");
+  };
+
+  useEffect(() => {
+    console.log("adsfas");
+
+    loginProcess();
+  }, []);
+
+  return <div>로그인 중..</div>;
 };
 
 export default KakaoRedirectHandler;
