@@ -1,9 +1,13 @@
 import styled from "styled-components";
 import { theme } from "../style/theme";
+import Party from "../classes/Party";
+import { useAppDispatch } from "../app/hooks";
+import { setPartyIndex } from "../features/counter/reportBannerSlice";
 
 interface PartyInfo {
-  name: string;
-  img_uri: string;
+  party: Party;
+  // imgUri: string;
+  selected: boolean;
 }
 
 const Button = styled(theme.style.button)`
@@ -16,8 +20,7 @@ const Button = styled(theme.style.button)`
 
   font-size: 18px;
 
-  border: 1px solid #818181;
-  border-radius: 8px;
+  ${theme.style.defaultBorder}
 `;
 
 const Img = styled.img`
@@ -27,10 +30,25 @@ const Img = styled.img`
 `;
 
 export function PartyButton(props: PartyInfo) {
+  const dispatch = useAppDispatch();
+
   return (
-    <Button>
-      <Img src={props.img_uri} alt="" />
-      <span>{props.name}</span>
+    <Button
+      style={
+        props.selected
+          ? {
+              borderColor: props.party.firstColor,
+              borderWidth: 2,
+              color: props.party.firstColor,
+              fontWeight: 600,
+              backgroundColor: props.party.secondColor,
+            }
+          : {}
+      }
+      onClick={() => dispatch(setPartyIndex(props.party.index))}
+    >
+      {props.party.imgUri && <Img src={props.party.imgUri} alt="" />}
+      <span>{props.party.name}</span>
     </Button>
   );
 }

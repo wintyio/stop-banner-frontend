@@ -2,13 +2,13 @@ import styled from "styled-components";
 import { theme } from "../style/theme";
 import { useState } from "react";
 import {
-  searchLoactionInfos,
-  selectSearchedPlaceInfos,
   setLocation,
+  selectSearchedPlacesInfoList,
+  searchPlacesInfoList,
 } from "../features/counter/reportBannerSlice";
 import { useAppDispatch, useAppSelector } from "../app/hooks";
 
-const RecomandContentDiv = styled.div`
+const RecommendContentDiv = styled.div`
   display: flex;
   flex-direction: column;
   padding: 16px 4px;
@@ -17,22 +17,33 @@ const RecomandContentDiv = styled.div`
   cursor: pointer;
 `;
 
-const RecomandPlaceDiv = styled.div`
+const RecommendPlaceDiv = styled.div`
   font-size: 14px;
   font-weight: 400;
   margin-bottom: 4px;
 `;
 
-const RecomandAddressDiv = styled.div`
+const RecommendAddressDiv = styled.div`
   font-size: 12px;
   font-weight: 400;
 `;
 
+let key = 0;
+
 export function MapSearchInput() {
   const [wasChanged, setWasChanged] = useState(false);
   const [value, setValue] = useState("");
-  const searchedPlaceInfos = useAppSelector(selectSearchedPlaceInfos);
+  const searchedPlacesInfoList = useAppSelector(selectSearchedPlacesInfoList);
   const dispatch = useAppDispatch();
+
+  const onClickedrecommendedPlace = (
+    placeName: string,
+    placeCoords: number[]
+  ) => {
+    setWasChanged(false);
+    setValue(placeName);
+    dispatch(setLocation(placeCoords));
+  };
 
   return (
     <div>
@@ -44,30 +55,28 @@ export function MapSearchInput() {
         }}
         onKeyUp={(e) => {
           // if (e.key !== "Enter") return;
-          dispatch(searchLoactionInfos(value));
+          dispatch(searchPlacesInfoList(value));
           e.preventDefault();
         }}
-        placeholder="현수막 발견 장소를 입력하세요 (예시: 강남구 테헤란로)"
+        placeholder="현수막 발견 장소를 입력하세요."
       />
 
-      {value.length != 0 &&
-        wasChanged &&
-        searchedPlaceInfos.map((value) => {
-          return (
-            <RecomandContentDiv
-              onClick={() => {
-                setWasChanged(false);
-                setValue(value.place_name);
-                dispatch(
-                  setLocation([parseFloat(value.y), parseFloat(value.x)])
-                );
-              }}
-            >
-              <RecomandPlaceDiv>{value.place_name}</RecomandPlaceDiv>
-              <RecomandAddressDiv>{value.address_name}</RecomandAddressDiv>
-            </RecomandContentDiv>
-          );
-        })}
+      {wasChanged &&
+        value.length !== 0 &&
+        searchedPlacesInfoList.map((value: any) => (
+          <RecommendContentDiv
+            key={key++}
+            onClick={() => {
+              onClickedrecommendedPlace(value.place_name, [
+                parseFloat(value.y),
+                parseFloat(value.x),
+              ]);
+            }}
+          >
+            <RecommendPlaceDiv>{value.place_name}</RecommendPlaceDiv>
+            <RecommendAddressDiv>{value.address_name}</RecommendAddressDiv>
+          </RecommendContentDiv>
+        ))}
     </div>
   );
 }

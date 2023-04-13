@@ -133,6 +133,7 @@ export const loginSlice = createSlice({
 export const { logout } = loginSlice.actions;
 
 export const selectKakaoAccessToken = (state: RootState) => state.login.kakaoAccessToken;
+export const selectWintyAccessToken = (state: RootState) => state.login.wintyAccessToken;
 export const selectLoginStatus = (state: RootState) => state.login.status;
 export const selectLoginErrMsg = (state: RootState) => state.login.errMsg;
 

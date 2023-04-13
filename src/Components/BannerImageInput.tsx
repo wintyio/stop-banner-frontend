@@ -1,4 +1,3 @@
-import { useState } from "react";
 import styled from "styled-components";
 import { isString } from "util";
 import { theme } from "../style/theme";
@@ -7,6 +6,7 @@ import { useAppDispatch, useAppSelector } from "../app/hooks";
 import {
   selectImage,
   setImage,
+  setImageSrc,
   setLocation,
 } from "../features/counter/reportBannerSlice";
 
@@ -59,6 +59,10 @@ export function BannerImageInput() {
             if (!window.confirm("사진을 변경하시겠습니까?"))
               event.preventDefault();
           }}
+          onDoubleClick={(event) => {
+            if (!window.confirm("사진을 변경하시겠습니까?"))
+              event.preventDefault();
+          }}
         >
           <ImageViewer src={image} />
         </label>
@@ -70,7 +74,10 @@ export function BannerImageInput() {
         accept="image/png, image/gif, image/jpeg"
         onChange={async (event) => {
           let file = event.target.files;
-          if (!file || file.length == 0) return;
+          if (!file || file.length === 0) return;
+
+          let url = URL.createObjectURL(file[0]).toString();
+          dispatch(setImageSrc(url));
 
           let reader = new FileReader();
           reader.readAsDataURL(file[0]);
@@ -82,11 +89,7 @@ export function BannerImageInput() {
               let result = reader.result as ArrayBuffer;
               let { latitude, longitude } = await exifr.gps(result);
               dispatch(setLocation([latitude, longitude]));
-            } catch {
-              window.confirm(
-                "사진에 위치 데이터가 없어, 위치를 직접 입력해주셔야 합니다."
-              );
-            }
+            } catch {}
           };
         }}
       />
