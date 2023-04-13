@@ -1,15 +1,19 @@
 {
   "files": {
-    "main.css": "/stop-banner-frontend/static/css/main.cf91d95b.css",
-    "main.js": "/stop-banner-frontend/static/js/main.83f52cdc.js",
+    "main.css": "/stop-banner-frontend/static/css/main.34c79fc2.css",
+    "main.js": "/stop-banner-frontend/static/js/main.bad70c1d.js",
     "static/js/787.f81e0c6a.chunk.js": "/stop-banner-frontend/static/js/787.f81e0c6a.chunk.js",
+    "static/media/card_accident.jpg": "/stop-banner-frontend/static/media/card_accident.2365687907080cfcb877.jpg",
+    "static/media/card_damage.jpg": "/stop-banner-frontend/static/media/card_damage.301066971cfb402b0b5b.jpg",
+    "static/media/card_pollution.jpg": "/stop-banner-frontend/static/media/card_pollution.4c40ba2ad94cb4983361.jpg",
+    "static/media/Ads.png": "/stop-banner-frontend/static/media/Ads.4e444b76fa1a9cc1120f.png",
     "index.html": "/stop-banner-frontend/index.html",
-    "main.cf91d95b.css.map": "/stop-banner-frontend/static/css/main.cf91d95b.css.map",
-    "main.83f52cdc.js.map": "/stop-banner-frontend/static/js/main.83f52cdc.js.map",
+    "main.34c79fc2.css.map": "/stop-banner-frontend/static/css/main.34c79fc2.css.map",
+    "main.bad70c1d.js.map": "/stop-banner-frontend/static/js/main.bad70c1d.js.map",
     "787.f81e0c6a.chunk.js.map": "/stop-banner-frontend/static/js/787.f81e0c6a.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.cf91d95b.css",
-    "static/js/main.83f52cdc.js"
+    "static/css/main.34c79fc2.css",
+    "static/js/main.bad70c1d.js"
   ]
 }
