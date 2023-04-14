@@ -4,9 +4,8 @@ import { myConstants } from "../../constants/constant";
 import axios from "axios";
 import Compressor from "compressorjs";
 
-
 export interface ReportBannerState {
-  partyIndex: number,
+  partyId: number,
   memberName: string,
   imageSrc?: string,
   image: string | null,
@@ -18,7 +17,7 @@ export interface ReportBannerState {
 }
 
 const initialState: ReportBannerState = {
-  partyIndex: -1,
+  partyId: -1,
   memberName: "",
   image: null,
   location: [37.5663, 126.9779],
@@ -71,7 +70,7 @@ export const submitReportBanner = createAsyncThunk(
 
     if (!reportBanner.imageSrc)
       return rejectWithValue("사진을 추가해주세요.");
-    if (reportBanner.partyIndex === -1)
+    if (reportBanner.partyId === -1)
       return rejectWithValue("정당을 선택해주세요.");
     if (!reportBanner.memberName.replaceAll(" ", ""))
       return rejectWithValue("인물을 입력해주세요.");
@@ -120,6 +119,8 @@ export const submitReportBanner = createAsyncThunk(
     formDataForSubmit.append("cityId", cityId.toString());
     formDataForSubmit.append("localId", localId.toString());
     formDataForSubmit.append("address", addressName.toString());
+    formDataForSubmit.append("parties", reportBanner.partyId.toString());
+    formDataForSubmit.append("names", reportBanner.memberName);
     formDataForSubmit.append("img", file);
 
     let url = `${myConstants.wintyHostUrl}/post/create`;
@@ -141,18 +142,28 @@ export const reportBannerSlice = createSlice({
   initialState,
   reducers: {
     initReportBanner: (state) => {
+      state.partyId = -1;
+      state.memberName = "";
       state.image = null;
       state.location = [37.5663, 126.9779];
+      state.cityId = -1;
+      state.localId = -1;
+      state.address = "";
       state.searchedPlacesInfoList = [];
     },
-    setPartyIndex: (state, action) => {
-      if (state.partyIndex === action.payload)
-        state.partyIndex = -1;
+    setPartyId: (state, action) => {
+      if (state.partyId === action.payload)
+        state.partyId = -1;
       else
-        state.partyIndex = action.payload;
+        state.partyId = action.payload;
     },
     setMemberName: (state, action) => {
-      state.memberName = action.payload;
+      // 특수문자 제거
+      let payload = action.payload;
+      const reg = /[\{\}\[\]\/?.,;:|\)*~`!^\-_+<>@\#$%&\\\=\(\'\"\s0-9]/gi;
+      payload = payload.replace(reg, '');
+
+      state.memberName = payload;
     },
     setImageSrc: (state, action) => {
       state.imageSrc = action.payload;
@@ -184,9 +195,9 @@ export const reportBannerSlice = createSlice({
   },
 });
 
-export const { initReportBanner, setPartyIndex, setMemberName, setImage, setImageSrc, setLocation, } = reportBannerSlice.actions;
+export const { initReportBanner, setPartyId, setMemberName, setImage, setImageSrc, setLocation, } = reportBannerSlice.actions;
 
-export const selectPartyIndex = (state: RootState) => state.reportBanner.partyIndex;
+export const selectPartyId = (state: RootState) => state.reportBanner.partyId;
 export const selectMemberName = (state: RootState) => state.reportBanner.memberName;
 export const selectImage = (state: RootState) => state.reportBanner.image;
 export const selectImageSrc = (state: RootState) => state.reportBanner.imageSrc;

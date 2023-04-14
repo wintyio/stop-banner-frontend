@@ -1,12 +1,12 @@
 export default class Party {
-    index: number;
+    id: number;
     name: string;
     firstColor: string;
     secondColor: string;
     imgUri: string;
 
-    constructor(index: number, name: string, firstColor: string, secondColor: string, imgUri: string) {
-        this.index = index;
+    constructor(id: number, name: string, firstColor: string, secondColor: string, imgUri: string) {
+        this.id = id;
         this.name = name;
         this.firstColor = firstColor;
         this.secondColor = secondColor;

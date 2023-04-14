@@ -1,8 +1,9 @@
 import { useAppDispatch, useAppSelector } from "../app/hooks";
 import {
+  initReportBanner,
   selectLocation,
   selectMemberName,
-  selectPartyIndex,
+  selectPartyId,
   setLocation,
   setMemberName,
   submitReportBanner,
@@ -15,7 +16,7 @@ import { Container as MapDiv, Marker, NaverMap } from "react-naver-maps";
 import styled from "styled-components";
 import { theme } from "../style/theme";
 import { BiCurrentLocation } from "react-icons/bi";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { selectWintyAccessToken } from "../features/counter/loginSlice";
 import { myConstants } from "../constants/constant";
 import { useNavigate } from "react-router-dom";
@@ -57,7 +58,7 @@ interface ReportBannerPageProps {
 function ReportBannerPage(props: ReportBannerPageProps) {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
-  const selectedPartyIndex = useAppSelector(selectPartyIndex);
+  const selectedPartyId = useAppSelector(selectPartyId);
   const memberName = useAppSelector(selectMemberName);
   const location = useAppSelector(selectLocation);
   const wintyAccessToken = useAppSelector(selectWintyAccessToken);
@@ -82,6 +83,10 @@ function ReportBannerPage(props: ReportBannerPageProps) {
     }
   };
 
+  useEffect(() => {
+    dispatch(initReportBanner());
+  }, []);
+
   return (
     <theme.style.page paddingBottom={65}>
       <TopMenuBar selectedPageName="제보하기" />
@@ -96,7 +101,7 @@ function ReportBannerPage(props: ReportBannerPageProps) {
             <PartyButton
               key={key++}
               party={val}
-              selected={selectedPartyIndex === val.index}
+              selected={selectedPartyId === val.id}
             />
           );
         })}
@@ -107,6 +112,7 @@ function ReportBannerPage(props: ReportBannerPageProps) {
         value={memberName}
         onChange={(e) => dispatch(setMemberName(e.target.value))}
         placeholder="인물의 이름을 입력하세요"
+        inputMode="text"
       />
       <SmallDescription>
         인물이 표기되지 않은 경우 입력하지 않아도 됩니다.

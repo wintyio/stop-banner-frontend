@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { theme } from "../style/theme";
 import Party from "../classes/Party";
 import { useAppDispatch } from "../app/hooks";
-import { setPartyIndex } from "../features/counter/reportBannerSlice";
+import { setPartyId } from "../features/counter/reportBannerSlice";
 
 interface PartyInfo {
   party: Party;
@@ -45,7 +45,7 @@ export function PartyButton(props: PartyInfo) {
             }
           : {}
       }
-      onClick={() => dispatch(setPartyIndex(props.party.index))}
+      onClick={() => dispatch(setPartyId(props.party.id))}
     >
       {props.party.imgUri && <Img src={props.party.imgUri} alt="" />}
       <span>{props.party.name}</span>
