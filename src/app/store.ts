@@ -6,6 +6,7 @@ import { combineReducers } from 'redux';
 import { persistReducer } from 'redux-persist';
 import { encryptTransform } from 'redux-persist-transform-encrypt';
 import reportBannerSlice from '../features/counter/reportBannerSlice';
+import reportPostSlice from '../features/counter/reportPostSlice';
 import feedSlice from '../features/counter/feedSlice';
 
 const reducers = combineReducers({
@@ -13,6 +14,7 @@ const reducers = combineReducers({
   login: loginReducer,
   feed: feedSlice,
   reportBanner: reportBannerSlice,
+  reportPost: reportPostSlice
 });
 
 const persistConfig = {

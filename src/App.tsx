@@ -6,7 +6,7 @@ import FeedPage from "./Pages/FeedPage";
 import IntroPage from "./Pages/IntroPage";
 import StatisticPage from "./Pages/StatisticPage";
 import ReportBannerPage from "./Pages/ReportBannerPage";
-import EditNicknamePage from "./Pages/EditNicknamePage";
+import ReportPostPage from "./Pages/ReportPostPage";
 import LoginPage from "./Pages/LoginPage";
 import KakaoRedirectHandler from "./Pages/KakaoRedirectHandler";
 
@@ -56,7 +56,7 @@ function App() {
               path="/report/banner"
               element={<ReportBannerPage navermaps={navermaps} />}
             />
-            <Route path="/report/article" element={<ReportArticlePage />} />
+            <Route path="/report/post" element={<ReportPostPage />} />
             <Route path="/edit/nickname" element={<EditNicknamePage />} />
           </Routes>
         </PersistGate>
