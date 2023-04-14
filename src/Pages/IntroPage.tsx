@@ -5,6 +5,7 @@ import img_damage from "../img/card_damage.jpg";
 import img_pollution from "../img/card_pollution.jpg";
 import TopTitleBar from "../Components/TopTitleBar";
 import introThumb from "../img/intro_thumb.png";
+import { useNavigate } from "react-router-dom";
 
 interface BoxProps {
   backgroundImage: string;
@@ -71,6 +72,8 @@ const BoxDescription = styled.div`
 `;
 
 export default function IntroPage() {
+  const navigate = useNavigate();
+
   return (
     <theme.style.page>
       <TitleBox>
@@ -196,7 +199,9 @@ export default function IntroPage() {
             border: `1px solid ${theme.color.white}`,
             borderRadius: 24,
           }}
-          onClick={() => {}}
+          onClick={() => {
+            navigate(-1);
+          }}
         >
           제보하기
         </theme.style.defaultButton>

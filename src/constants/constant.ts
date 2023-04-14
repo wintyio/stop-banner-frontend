@@ -1,14 +1,23 @@
 import Party from "../classes/Party";
 
+const partyInfos = [
+    new Party(1, "국민의힘", "#E61E2B", "#ffb8bc", "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAlklEQVR4AWIgBJ4xqICwKhDvA7RLBxgAAkEUhvcoRQrSzVOAlA5Qh9rpwUPQwjYPZvgAvL8KrLavYWpgAVMEtLCC/aUwzid3DCi/9rrcvzmR7MlJNk7ScQZ0MIOpAk7IygATiYAIiIAIiIAMlzJgg1EVsEMPKYnGB0gMkI3jXAOO1zhPNs6TjfNk4zzHH8414IapOI57ACrScxxnS+PnAAAAAElFTkSuQmCC"),
+    new Party(2, "더불어민주당", "#004EA2", "#a3d0ff", "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4d/Logo_of_the_Minjoo_Party_of_Korea_%28Sign_only%29.svg/220px-Logo_of_the_Minjoo_Party_of_Korea_%28Sign_only%29.svg.png"),
+    new Party(3, "정의당", "#ffaa00", "#fff9b0", "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAMAAABEpIrGAAAAUVBMVEX/+rj/8Cj/7hL/7yL/7QD/7AD/9XX/8C3/94f//////d3//Nj/+JX//vL/8kr/+aT/8UL/+J///u//94r//uv/8Tn///f/81P/9nz//eP/9XC0SdojAAAAmklEQVR4Ac3TRQKDMAAF0Ug/bnW5/z2ryODLkg0yDyfGWLcwrDF+tzi8ccvA/RNoBSgItQQUxYnXGKDHcRISaNjfIyWwEMq+PS8AyrzSsFfqwD6OD7Vgb0GJPegd+Oyrz6FuHUDH+q5U99NZeNWduFy7DgARowNAoANAoAPU4sZO0BP3sO4AEOgAEA+cHwBCm/ntCVYn7+r0fwFQGRRSG1uirQAAAABJRU5ErkJggg=="),
+    new Party(100, "기타", "#383838", "#dedede", ""),
+];
+
 export const myConstants = {
     // wintyHostUrl: "http://203.128.167.64:8000",     // dev
     wintyHostUrl: "http://13.125.12.125:8000",      // deploy
-    partyInfos: [
-        new Party(1, "국민의힘", "#E61E2B", "#ffb8bc", "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAlklEQVR4AWIgBJ4xqICwKhDvA7RLBxgAAkEUhvcoRQrSzVOAlA5Qh9rpwUPQwjYPZvgAvL8KrLavYWpgAVMEtLCC/aUwzid3DCi/9rrcvzmR7MlJNk7ScQZ0MIOpAk7IygATiYAIiIAIiIAMlzJgg1EVsEMPKYnGB0gMkI3jXAOO1zhPNs6TjfNk4zzHH8414IapOI57ACrScxxnS+PnAAAAAElFTkSuQmCC"),
-        new Party(2, "더불어민주당", "#004EA2", "#a3d0ff", "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4d/Logo_of_the_Minjoo_Party_of_Korea_%28Sign_only%29.svg/220px-Logo_of_the_Minjoo_Party_of_Korea_%28Sign_only%29.svg.png"),
-        new Party(3, "정의당", "#ffaa00", "#fff9b0", "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAMAAABEpIrGAAAAUVBMVEX/+rj/8Cj/7hL/7yL/7QD/7AD/9XX/8C3/94f//////d3//Nj/+JX//vL/8kr/+aT/8UL/+J///u//94r//uv/8Tn///f/81P/9nz//eP/9XC0SdojAAAAmklEQVR4Ac3TRQKDMAAF0Ug/bnW5/z2ryODLkg0yDyfGWLcwrDF+tzi8ccvA/RNoBSgItQQUxYnXGKDHcRISaNjfIyWwEMq+PS8AyrzSsFfqwD6OD7Vgb0GJPegd+Oyrz6FuHUDH+q5U99NZeNWduFy7DgARowNAoANAoAPU4sZO0BP3sO4AEOgAEA+cHwBCm/ntCVYn7+r0fwFQGRRSG1uirQAAAABJRU5ErkJggg=="),
-        new Party(100, "기타", "#383838", "#dedede", ""),
-    ],
+    partyInfos,
+    getPartyNameById(id: number) {
+        for (let p of partyInfos)
+            if (p.id == id)
+                return p.name;
+
+        return "";
+    },
     getCityId: (cityName: string) => {
         for (let i = 0; i < CITY_ID_LIST.length; i++) {
             const city = CITY_ID_LIST[i];

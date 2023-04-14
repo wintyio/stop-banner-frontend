@@ -1,9 +1,9 @@
-import { Container as MapDiv, NaverMap } from "react-naver-maps";
-import { FeedInfo } from "./Feed";
+import { Container as MapDiv, Marker, NaverMap } from "react-naver-maps";
 import styled from "styled-components";
 import { useState } from "react";
+import { FeedInfo } from "../classes/FeedInfo";
 
-interface Props {
+interface DefaultImgProps {
   feedInfo: FeedInfo;
 }
 
@@ -12,7 +12,7 @@ const DefaultImg = styled.div`
   width: 100%;
   aspect-ratio: 320/285;
 
-  background-image: ${(props: Props) => {
+  background-image: ${(props: DefaultImgProps) => {
     return `url(${props.feedInfo.imgUrl})`;
   }};
   background-position: center center;
@@ -25,14 +25,21 @@ const OriginImg = styled(DefaultImg)`
   backdrop-filter: blur(20px) brightness(0.6);
 `;
 
-export function FeedImage(props: Props) {
+interface FeedImageProps {
+  feedInfo: FeedInfo;
+  navermaps: any;
+}
+
+export function FeedImage(props: FeedImageProps) {
   let [imgState, setImgState] = useState("default");
+
+  const LatLng = props.navermaps.LatLng;
 
   const onClick = () => {
     let newState =
-      imgState == "default"
+      imgState === "default"
         ? "origin"
-        : imgState == "origin"
+        : imgState === "origin"
         ? "map"
         : "default";
     setImgState(newState);
@@ -40,21 +47,44 @@ export function FeedImage(props: Props) {
 
   return (
     <div>
-      {imgState == "default" && (
+      {imgState === "default" && (
         <DefaultImg onClick={onClick} feedInfo={props.feedInfo} />
       )}
-      {imgState == "map" && (
-        <MapDiv
-          style={{
-            width: "100%",
-            aspectRatio: 320 / 285,
-          }}
-          onClick={onClick}
-        >
-          <NaverMap draggable={false} scrollWheel={false} />
-        </MapDiv>
+      {imgState === "map" && (
+        <div>
+          <MapDiv
+            style={{
+              width: "100%",
+              aspectRatio: 320 / 285,
+            }}
+            onClick={onClick}
+          >
+            <NaverMap
+              defaultZoom={17}
+              maxZoom={17}
+              minZoom={17}
+              center={
+                new LatLng(
+                  props.feedInfo.location[0],
+                  props.feedInfo.location[1]
+                )
+              }
+              draggable={false}
+              scrollWheel={false}
+            >
+              <Marker
+                position={
+                  new LatLng(
+                    props.feedInfo.location[0],
+                    props.feedInfo.location[1]
+                  )
+                }
+              />
+            </NaverMap>
+          </MapDiv>
+        </div>
       )}
-      {imgState == "origin" && (
+      {imgState === "origin" && (
         <div
           style={{
             position: "relative",

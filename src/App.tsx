@@ -47,7 +47,7 @@ function App() {
       <HashRouter>
         <PersistGate persistor={persistor}>
           <Routes>
-            <Route path="/" element={<FeedPage />} />
+            <Route path="/" element={<FeedPage navermaps={navermaps} />} />
             <Route path="/intro" element={<IntroPage />} />
             <Route path="/statistic" element={<StatisticPage />} />
             <Route path="/login" element={<LoginPage />} />

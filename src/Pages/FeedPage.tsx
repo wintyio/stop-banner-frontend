@@ -2,11 +2,19 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import TopMenuBar from "../Components/TopMenuBar";
 import { theme } from "../style/theme";
-import { Feed, FeedInfo } from "../Components/Feed";
+import { Feed } from "../Components/Feed";
 import styled, { keyframes } from "styled-components";
+import { FeedAds } from "../Components/FeedAds";
+import { useAppDispatch, useAppSelector } from "../app/hooks";
+import {
+  initFeedSlice,
+  selectFeedInfoList,
+  updateFeedInfoList,
+} from "../features/counter/feedSlice";
+import { FeedInfo } from "../classes/FeedInfo";
 
 const loadingTextColorKeyframe = keyframes`
-  from{color: #ffffffff;}
+  from{color: #0d0000;}
   to{color: #ffffff00;}
 `;
 
@@ -24,28 +32,29 @@ const LoginLoadingDiv = styled.div`
   animation: ${loadingTextColorKeyframe} 1s linear infinite alternate;
 `;
 
-function FeedPage() {
+interface Props {
+  navermaps: any;
+}
+
+let key = 0;
+
+function FeedPage(props: Props) {
   const code = new URL(window.location.href).searchParams.get("code");
+  const dispatch = useAppDispatch();
+  const feedInfoList = useAppSelector(selectFeedInfoList);
 
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    if (!code || code.length <= 1) return;
-
-    setLoading(true);
-    setTimeout(() => navigate("/login/oauth"), 3000);
-  });
+    if (code && code.length > 1) {
+      setLoading(true);
+      setTimeout(() => navigate("/login/oauth"), 3000);
+    }
+    dispatch(initFeedSlice());
+    dispatch(updateFeedInfoList());
+  }, []);
 
   const navigate = useNavigate();
-  const f = new FeedInfo(
-    1,
-    "홍길동",
-    "국민의힘",
-    "경기도 시흥시 시청로 20",
-    "박유천",
-    new Date(),
-    "https://img.khan.co.kr/news/2023/03/09/rcv.YNA.20230118.PYH2023011816770005100_P1.jpg"
-  );
 
   return (
     <theme.style.page>
@@ -53,24 +62,11 @@ function FeedPage() {
 
       <TopMenuBar selectedPageName="피드" />
 
-      <Feed feedInfo={f} />
-      <Feed feedInfo={f} />
-      <Feed feedInfo={f} />
-      <Feed feedInfo={f} />
-      <Feed feedInfo={f} />
-      <Feed feedInfo={f} />
-      <Feed feedInfo={f} />
-      <Feed feedInfo={f} />
-      <Feed feedInfo={f} />
-      <Feed feedInfo={f} />
-      <Feed feedInfo={f} />
-      <Feed feedInfo={f} />
-      <Feed feedInfo={f} />
-      <Feed feedInfo={f} />
-      <Feed feedInfo={f} />
-      <Feed feedInfo={f} />
-      <Feed feedInfo={f} />
-      <Feed feedInfo={f} />
+      <FeedAds />
+
+      {feedInfoList.map((feed: FeedInfo) => (
+        <Feed key={key++} navermaps={props.navermaps} feedInfo={feed} />
+      ))}
     </theme.style.page>
   );
 }

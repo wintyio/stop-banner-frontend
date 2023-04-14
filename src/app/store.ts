@@ -4,13 +4,15 @@ import loginReducer from '../features/counter/loginSlice';
 import storage from 'redux-persist/lib/storage';
 import { combineReducers } from 'redux';
 import { persistReducer } from 'redux-persist';
-import reportBannerSlice from '../features/counter/reportBannerSlice';
 import { encryptTransform } from 'redux-persist-transform-encrypt';
+import reportBannerSlice from '../features/counter/reportBannerSlice';
+import feedSlice from '../features/counter/feedSlice';
 
 const reducers = combineReducers({
   counter: counterReducer,
   login: loginReducer,
-  reportBanner: reportBannerSlice
+  feed: feedSlice,
+  reportBanner: reportBannerSlice,
 });
 
 const persistConfig = {
@@ -20,7 +22,7 @@ const persistConfig = {
 
 const persistedReducer = persistReducer({
   ...persistConfig,
-  blacklist: ["reportBanner"],
+  blacklist: ["feed", "reportBanner", "reportPost"],
   transforms: [encryptTransform({ secretKey: "winty" })]
 }, reducers);
 
