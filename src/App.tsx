@@ -3,6 +3,7 @@ import { HashRouter, Routes, Route } from "react-router-dom";
 import "./App.css";
 
 import FeedPage from "./Pages/FeedPage";
+import IntroPage from "./Pages/IntroPage";
 import StatisticPage from "./Pages/StatisticPage";
 import ReportBannerPage from "./Pages/ReportBannerPage";
 import EditNicknamePage from "./Pages/EditNicknamePage";
@@ -47,6 +48,7 @@ function App() {
         <PersistGate persistor={persistor}>
           <Routes>
             <Route path="/" element={<FeedPage />} />
+            <Route path="/intro" element={<IntroPage />} />
             <Route path="/statistic" element={<StatisticPage />} />
             <Route path="/login" element={<LoginPage />} />
             <Route path="/login/oauth" element={<KakaoRedirectHandler />} />
