@@ -46,7 +46,20 @@ export default function TopMenuBar(props: TopMenuBarProps) {
 
   return (
     <ContentDiv>
-      <img src={logo} width={25} style={{ marginLeft: 1, marginBottom: 10 }} />
+      <div style={{ display: "flex", alignItems: "center", marginBottom: 10 }}>
+        <img src={logo} width={20} style={{ marginLeft: 0, marginBottom: 5 }} />
+        <div
+          id="logo-text"
+          style={{
+            display: "inline",
+            marginBottom: 1,
+            marginLeft: 5,
+            fontWeight: "bold",
+          }}
+        >
+          현수막 헌터
+        </div>
+      </div>
 
       <div>
         <Button

@@ -24,6 +24,7 @@ const LoginLoadingDiv = styled.div`
   top: 0;
   width: 100vw;
   height: 100vh;
+  padding-top: 30px;
   background-color: #000000c7;
   color: white;
   font-size: 40px;

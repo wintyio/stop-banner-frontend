@@ -6,6 +6,15 @@
   font-style: normal;
 }
 
+@font-face {
+  font-family: "Logo-Text";
+  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2206-01@1.0/MICEGothic Bold.woff2")
+    format("woff2");
+
+  font-weight: 400;
+  font-style: normal;
+}
+
 * {
   font-family: "Pretendard-Regular" !important;
 }
@@ -28,4 +37,26 @@ a {
 }
 a:hover {
   text-decoration: none;
+}
+
+#logo-text {
+  font-family: "Logo-Text" !important;
+}
+
+#loader {
+  border: 16em solid #f3f3f3; /* Light grey */
+  border-top: 16em solid #686868; /* Blue */
+  border-radius: 50%;
+  width: 120em;
+  height: 120em;
+  animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }

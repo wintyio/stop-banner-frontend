@@ -52,83 +52,86 @@ export default function StatisticPage() {
   }, []);
 
   return (
-    <theme.style.page
-      style={{ fontSize: 20, fontWeight: 600 }}
-      paddingBottom={67}
-    >
+    <theme.style.page paddingBottom={67}>
       <TopMenuBar selectedPageName="통계" />
 
-      <theme.style.subTitle>정당별</theme.style.subTitle>
+      <div style={{ fontSize: 20, fontWeight: 600 }}>
+        <theme.style.subTitle>정당별</theme.style.subTitle>
 
-      <div style={{ textAlign: "center" }}>
-        <PieChart
-          label={({ x, y, dx, dy, dataEntry }) => (
-            <text
-              x={x}
-              y={y}
-              dx={dx}
-              dy={dy}
-              dominant-baseline="central"
-              text-anchor="middle"
-              style={{
-                fontSize: `${lerp(4, 5.5, (dataEntry.percentage - 5) / 50)}px`,
-                mixBlendMode: "darken",
-                filter: "brightness(1)",
-              }}
-            >
-              {dataEntry.title}
-            </text>
-          )}
-          labelPosition={70}
-          startAngle={-90}
-          lineWidth={60}
-          animate
-          data={partyRankData}
-          style={{ margin: "-50px" }}
-          center={[75, 75]}
-          viewBoxSize={[150, 150]}
-        />
+        <div style={{ textAlign: "center" }}>
+          <PieChart
+            label={({ x, y, dx, dy, dataEntry }) => (
+              <text
+                x={x}
+                y={y}
+                dx={dx}
+                dy={dy}
+                dominant-baseline="central"
+                text-anchor="middle"
+                style={{
+                  fontSize: `${lerp(
+                    4,
+                    5.5,
+                    (dataEntry.percentage - 5) / 50
+                  )}px`,
+                  mixBlendMode: "darken",
+                  filter: "brightness(1)",
+                }}
+              >
+                {dataEntry.title}
+              </text>
+            )}
+            labelPosition={70}
+            startAngle={-90}
+            lineWidth={60}
+            animate
+            data={partyRankData}
+            style={{ margin: "-50px" }}
+            center={[75, 75]}
+            viewBoxSize={[150, 150]}
+          />
+        </div>
+
+        {partyRankList.map((value, index) => {
+          return (
+            <RankLineDiv>
+              <RankSpan>
+                <span>{index + 1}</span>
+              </RankSpan>
+              <span>{value.party?.name}</span>
+              <theme.style.flexOne />
+              <span
+                style={{
+                  marginRight: 12,
+                  fontSize: 16,
+                  fontWeight: 600,
+                  color: theme.color.gray1,
+                }}
+              >
+                {value.count}건
+              </span>
+              <span>{value.percent}%</span>
+            </RankLineDiv>
+          );
+        })}
+
+        <theme.style.subTitle style={{ marginTop: 40 }}>
+          인물별
+        </theme.style.subTitle>
+
+        {memberRankList.map((value, index) => {
+          return (
+            <RankLineDiv>
+              <RankSpan>
+                <span>{index + 1}</span>
+              </RankSpan>
+              <span>{value.name}</span>
+              <theme.style.flexOne />
+              <span>{value.count}건</span>
+            </RankLineDiv>
+          );
+        })}
       </div>
-
-      {partyRankList.map((value, index) => {
-        return (
-          <RankLineDiv>
-            <RankSpan>
-              <span>{index + 1}</span>
-            </RankSpan>
-            <span>{value.party?.name}</span>
-            <theme.style.flexOne />
-            <span
-              style={{
-                marginRight: 12,
-                fontSize: 16,
-                fontWeight: 600,
-                color: theme.color.gray1,
-              }}
-            >
-              {value.count}건
-            </span>
-            <span>{value.percent}%</span>
-          </RankLineDiv>
-        );
-      })}
-
-      <theme.style.subTitle style={{ marginTop: 40 }}>
-        인물별
-      </theme.style.subTitle>
-
-      {memberRankList.map((value, index) => {
-        return (
-          <RankLineDiv>
-            <RankSpan>
-              <span>{index + 1}</span>
-            </RankSpan>
-            <span>{value.name}</span>
-            <theme.style.flexOne />
-            <span>{value.count}건</span>
-          </RankLineDiv>
-        );
-      })}
     </theme.style.page>
   );
 }

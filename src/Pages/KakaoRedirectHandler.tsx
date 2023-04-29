@@ -44,7 +44,21 @@ const KakaoRedirectHandler = () => {
     loginProcess();
   }, []);
 
-  return <div>로그인 중..</div>;
+  return (
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "center",
+        alignItems: "center",
+        textAlign: "center",
+      }}
+    >
+      <div style={{ fontSize: 0.4, marginTop: 50, marginBottom: 10 }}>
+        <div id="loader"></div>
+      </div>
+    </div>
+  );
 };
 
 export default KakaoRedirectHandler;

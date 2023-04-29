@@ -43,7 +43,7 @@ function LoginPage() {
       <theme.style.flexOne />
 
       <img src={logo} style={{ width: 50, marginBottom: 20 }} />
-      <theme.style.mainTitle>현수막 헌터</theme.style.mainTitle>
+      <theme.style.mainTitle id="logo-text">현수막 헌터</theme.style.mainTitle>
       <Description>정당 현수막 제보 서비스</Description>
 
       <theme.style.flexOne />

@@ -39,26 +39,25 @@ export default function RankPage() {
   }, []);
 
   return (
-    <theme.style.page
-      style={{ fontSize: 20, fontWeight: 600 }}
-      paddingBottom={67}
-    >
+    <theme.style.page paddingBottom={67}>
       <TopMenuBar selectedPageName="랭킹" />
 
-      <theme.style.subTitle>랭킹</theme.style.subTitle>
+      <div style={{ fontSize: 20, fontWeight: 600 }}>
+        <theme.style.subTitle>랭킹</theme.style.subTitle>
 
-      {userRankList.map((value, index) => {
-        return (
-          <RankLineDiv>
-            <RankSpan>
-              <span>{index + 1}</span>
-            </RankSpan>
-            <span>{value.name}</span>
-            <theme.style.flexOne />
-            <span>{value.count}건</span>
-          </RankLineDiv>
-        );
-      })}
+        {userRankList.map((value, index) => {
+          return (
+            <RankLineDiv>
+              <RankSpan>
+                <span>{index + 1}</span>
+              </RankSpan>
+              <span>{value.name}</span>
+              <theme.style.flexOne />
+              <span>{value.count}건</span>
+            </RankLineDiv>
+          );
+        })}
+      </div>
     </theme.style.page>
   );
 }
