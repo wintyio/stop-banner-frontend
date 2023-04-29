@@ -25,7 +25,7 @@ export const submitReportPost = createAsyncThunk("reportPost/submitReportPost",
     let url = `${myConstants.wintyHostUrl}/report`;
     let data = {
       classification: reportPost.reportType,
-      content: reportPost.reportReason,
+      content: reportPost.reportReason ? reportPost.reportReason : "내용 없음",
       forum_id: reportPost.postId,
     };
     let headers = {
