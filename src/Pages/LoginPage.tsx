@@ -4,12 +4,13 @@ import { kakaoLoginAsync } from "../features/counter/loginSlice";
 import { theme } from "../style/theme";
 import { RiKakaoTalkFill } from "react-icons/ri";
 import TopTitleBar from "../Components/TopTitleBar";
+import logo from "../img/logo_motion.gif";
 
 const Page = styled(theme.style.page)`
   display: flex;
   flex-direction: column;
   box-sizing: border-box;
-  padding-bottom: 73px;
+  padding-bottom: 50px;
 `;
 
 const Description = styled.div`
@@ -41,9 +42,12 @@ function LoginPage() {
 
       <theme.style.flexOne />
 
+      <img src={logo} style={{ width: 50, marginBottom: 20 }} />
       <theme.style.mainTitle>현수막 헌터</theme.style.mainTitle>
       <Description>정당 현수막 제보 서비스</Description>
 
+      <theme.style.flexOne />
+      <theme.style.flexOne />
       <theme.style.flexOne />
       <theme.style.flexOne />
       <theme.style.flexOne />
@@ -52,6 +56,9 @@ function LoginPage() {
         <RiKakaoTalkFill style={{ marginRight: 10 }} />
         <span>카카오로 시작하기</span>
       </LoginButton>
+      <SmallDescription style={{ marginBottom: -6 }}>
+        본 서비스는 어떠한 개인정보도 수집하지 않습니다.
+      </SmallDescription>
       <SmallDescription>
         회원 가입 시,{" "}
         <a

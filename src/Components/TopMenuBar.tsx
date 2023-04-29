@@ -3,9 +3,10 @@ import styled from "styled-components";
 import { theme } from "../style/theme";
 import { useAppSelector } from "../app/hooks";
 import { selectLoginStatus } from "../features/counter/loginSlice";
+import logo from "../img/logo192.png";
 
 const ContentDiv = styled.div`
-  margin-top: 44px;
+  margin-top: 17px;
   margin-bottom: 32px;
 `;
 
@@ -45,42 +46,46 @@ export default function TopMenuBar(props: TopMenuBarProps) {
 
   return (
     <ContentDiv>
-      <Button
-        onClick={() => navigate("/")}
-        selected={props.selectedPageName == "피드"}
-      >
-        피드
-      </Button>
+      <img src={logo} width={25} style={{ marginLeft: 1, marginBottom: 10 }} />
 
-      <Button
-        onClick={() => navigate("/statistic")}
-        selected={props.selectedPageName === "통계"}
-      >
-        통계
-      </Button>
+      <div>
+        <Button
+          onClick={() => navigate("/")}
+          selected={props.selectedPageName == "피드"}
+        >
+          피드
+        </Button>
 
-      <Button
-        onClick={() => navigate("/rank")}
-        selected={props.selectedPageName === "랭킹"}
-      >
-        랭킹
-      </Button>
+        <Button
+          onClick={() => navigate("/statistic")}
+          selected={props.selectedPageName === "통계"}
+        >
+          통계
+        </Button>
 
-      <Button
-        onClick={() =>
-          checkLogin() ? navigate("/report/banner") : navigate("/login")
-        }
-        selected={props.selectedPageName === "제보하기"}
-      >
-        제보하기
-      </Button>
+        <Button
+          onClick={() => navigate("/rank")}
+          selected={props.selectedPageName === "랭킹"}
+        >
+          랭킹
+        </Button>
 
-      <Button
-        onClick={() => (checkLogin() ? navigate("/my") : navigate("/login"))}
-        selected={props.selectedPageName === "MY"}
-      >
-        MY
-      </Button>
+        <Button
+          onClick={() =>
+            checkLogin() ? navigate("/report/banner") : navigate("/login")
+          }
+          selected={props.selectedPageName === "제보하기"}
+        >
+          제보하기
+        </Button>
+
+        <Button
+          onClick={() => (checkLogin() ? navigate("/my") : navigate("/login"))}
+          selected={props.selectedPageName === "MY"}
+        >
+          MY
+        </Button>
+      </div>
     </ContentDiv>
   );
 }
