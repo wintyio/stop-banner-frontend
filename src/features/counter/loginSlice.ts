@@ -38,7 +38,7 @@ export const getKakaoAccessTokenAsync = createAsyncThunk(
   "login/kakaoAccessToken",
   async (code: string) => {
     let grant_type = "authorization_code";
-    let redirectUri = window.location.protocol + "//" + window.location.host + "/stop-banner-frontend/";
+    let redirectUri = window.location.protocol + "//" + window.location.host;
     let client_id = "b76f1c8406260f4ffdafd2f02f05222e"; // REST API KEY
 
     let url = `https://kauth.kakao.com/oauth/token?grant_type=${grant_type}&client_id=${client_id}&redirect_uri=${redirectUri}&code=${code}`;
@@ -68,6 +68,7 @@ export const getWintyAccessTokenAsync = createAsyncThunk(
     let status = res.status;
 
     console.log(status);
+    console.log(res.data);
 
     return (status === 200) ? res.data.result.token : rejectWithValue(null);
   }
