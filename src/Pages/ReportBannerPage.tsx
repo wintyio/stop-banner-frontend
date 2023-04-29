@@ -132,7 +132,12 @@ function ReportBannerPage(props: ReportBannerPageProps) {
         })}
       </PartyButtons>
 
-      <theme.style.subTitle>인물</theme.style.subTitle>
+      <theme.style.subTitle>
+        인물
+        <SmallDescription style={{ display: "inline", fontWeight: 500 }}>
+          (선택사항)
+        </SmallDescription>
+      </theme.style.subTitle>
       <theme.style.searchInput
         value={memberName}
         onChange={(e) => dispatch(setMemberName(e.target.value))}

@@ -91,7 +91,10 @@ export function Feed(props: Props) {
     <ContentDiv>
       <InfoLineDiv style={{ marginBottom: 4 }}>
         <PartyInfoSpan>
-          {props.feedInfo.partyMemberName} · {props.feedInfo.partyName}
+          {props.feedInfo.partyMemberName
+            ? `${props.feedInfo.partyMemberName} ·`
+            : ""}{" "}
+          {props.feedInfo.partyName}
         </PartyInfoSpan>
         <BsThreeDots onClick={() => reportPost()} />
       </InfoLineDiv>

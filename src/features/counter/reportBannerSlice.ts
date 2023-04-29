@@ -72,8 +72,8 @@ export const submitReportBanner = createAsyncThunk(
       return rejectWithValue("사진을 추가해주세요.");
     if (reportBanner.partyId === -1)
       return rejectWithValue("정당을 선택해주세요.");
-    if (!reportBanner.memberName.replaceAll(" ", ""))
-      return rejectWithValue("인물을 입력해주세요.");
+
+    let memberName = reportBanner.memberName.replaceAll(" ", "");
 
     let { result, status }: any = await new Promise((resolve) =>
       geocoder.coord2Address(reportBanner.location[1], reportBanner.location[0], (result: any, status: any) => resolve({ result, status })
@@ -120,7 +120,7 @@ export const submitReportBanner = createAsyncThunk(
     formDataForSubmit.append("localId", localId.toString());
     formDataForSubmit.append("address", addressName.toString());
     formDataForSubmit.append("parties", reportBanner.partyId.toString());
-    formDataForSubmit.append("names", reportBanner.memberName);
+    formDataForSubmit.append("names", memberName ? memberName : " ");
     formDataForSubmit.append("img", file);
 
     let url = `${myConstants.wintyHostUrl}/forum`;

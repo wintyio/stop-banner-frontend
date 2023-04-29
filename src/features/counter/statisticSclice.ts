@@ -112,6 +112,7 @@ export const statisticSlice = createSlice({
 
                 let jsonList = action.payload.result;
                 for (let json of jsonList) {
+                    if (!json.name) continue;
                     let rank = MemberRank.fromJSON(json);
                     rankList.push(rank);
                 }
