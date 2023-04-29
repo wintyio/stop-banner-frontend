@@ -27,7 +27,7 @@ export const kakaoLoginAsync = createAsyncThunk(
   "login/kakaoLogin",
   async () => {
     let config = {
-      redirectUri: window.location.protocol + "//" + window.location.host + "/stop-banner-frontend/",
+      redirectUri: window.location.protocol + "//" + window.location.host,
     };
 
     window.Kakao.Auth.authorize(config);

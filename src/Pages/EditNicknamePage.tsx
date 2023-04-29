@@ -3,12 +3,12 @@ import { theme } from "../style/theme";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { logout } from "../features/counter/loginSlice";
+import TopTitleBar from "../Components/TopTitleBar";
 
 const Page = styled(theme.style.page)`
   display: flex;
   flex-direction: column;
   box-sizing: border-box;
-  padding-top: 160px;
   padding-bottom: 73px;
 `;
 
@@ -18,9 +18,11 @@ export default function EditNicknamePage() {
 
   return (
     <Page>
-      <div>
-        <theme.style.mainTitle>닉네임 설정</theme.style.mainTitle>
-      </div>
+      <TopTitleBar titleName=" " />
+
+      <theme.style.flexOne />
+
+      <theme.style.mainTitle>닉네임 설정</theme.style.mainTitle>
 
       <theme.style.flexOne />
 
@@ -31,19 +33,11 @@ export default function EditNicknamePage() {
 
       <theme.style.flexOne />
       <theme.style.flexOne />
+      <theme.style.flexOne />
+      <theme.style.flexOne />
 
       <theme.style.defaultButton onClick={() => navigate("/")}>
         <span>변경하기</span>
-      </theme.style.defaultButton>
-
-      <theme.style.defaultButton
-        style={{ marginTop: 20 }}
-        onClick={() => {
-          dispatch(logout());
-          navigate("/");
-        }}
-      >
-        로그아웃
       </theme.style.defaultButton>
     </Page>
   );
