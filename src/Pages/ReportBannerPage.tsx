@@ -16,7 +16,7 @@ import { Container as MapDiv, Marker, NaverMap } from "react-naver-maps";
 import styled from "styled-components";
 import { theme } from "../style/theme";
 import { BiCurrentLocation } from "react-icons/bi";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { selectWintyAccessToken } from "../features/counter/loginSlice";
 import { myConstants } from "../constants/constant";
 import { useNavigate } from "react-router-dom";
@@ -73,6 +73,19 @@ const Pin = styled.div`
   }
 `;
 
+const TouchDiv = styled.div`
+  position: absolute;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  font-size: 15px;
+  font-weight: 500;
+  color: white;
+  background-color: #07070768;
+  text-align: center;
+  ${theme.style.defaultBorder}
+`;
+
 let key = 0;
 
 interface ReportBannerPageProps {
@@ -87,6 +100,7 @@ function ReportBannerPage(props: ReportBannerPageProps) {
   const location = useAppSelector(selectLocation);
   const wintyAccessToken = useAppSelector(selectWintyAccessToken);
   const [processingGPS, setProcessingGPS] = useState(false);
+  const [foundLocation, setFoundLocation] = useState(false);
   const [submit, setSubmit] = useState(false);
 
   const LatLng = props.navermaps.LatLng;
@@ -96,7 +110,8 @@ function ReportBannerPage(props: ReportBannerPageProps) {
     setSubmit(true);
 
     let _submit = await dispatch(submitReportBanner(wintyAccessToken));
-    if (submitReportBanner.fulfilled.match(_submit)) navigate("/");
+    if (submitReportBanner.fulfilled.match(_submit))
+      window.location.href = "./";
     else {
       setSubmit(false);
       window.confirm(
@@ -117,7 +132,7 @@ function ReportBannerPage(props: ReportBannerPageProps) {
       <TopMenuBar selectedPageName="제보하기" />
 
       <theme.style.subTitle>사진</theme.style.subTitle>
-      <BannerImageInput />
+      <BannerImageInput onFoundLocationByImage={() => setFoundLocation(true)} />
 
       <theme.style.subTitle>정당</theme.style.subTitle>
       <PartyButtons>
@@ -193,6 +208,27 @@ function ReportBannerPage(props: ReportBannerPageProps) {
           )}
         </MapDiv>
         <Pin></Pin>
+
+        <TouchDiv
+          style={{ display: `${foundLocation ? "block" : "none"}` }}
+          onClick={() => setFoundLocation(false)}
+        >
+          <div
+            style={{
+              display: "inline-block",
+              padding: "5px 15px",
+              marginTop: 10,
+              background: "black",
+              borderRadius: 10,
+              bottom: 0,
+              lineHeight: 1.4,
+            }}
+          >
+            사진에서 위치를 자동으로 찾았습니다.
+            <br />
+            위치를 조정하려면 지도를 터치하세요.
+          </div>
+        </TouchDiv>
       </div>
 
       <SmallDescription style={{ marginBottom: 36 }}>

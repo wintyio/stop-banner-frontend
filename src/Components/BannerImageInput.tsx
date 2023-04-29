@@ -45,7 +45,11 @@ const Input = styled.input`
   display: none;
 `;
 
-export function BannerImageInput() {
+interface Props {
+  onFoundLocationByImage?: Function;
+}
+
+export function BannerImageInput(props: Props) {
   const dispatch = useAppDispatch();
   const image = useAppSelector(selectImage);
 
@@ -106,6 +110,9 @@ export function BannerImageInput() {
             try {
               let result = reader.result as ArrayBuffer;
               let { latitude, longitude } = await exifr.gps(result);
+
+              if (props.onFoundLocationByImage) props.onFoundLocationByImage();
+
               dispatch(setLocation([latitude, longitude]));
             } catch {}
           };
