@@ -3,6 +3,7 @@ import { myConstants } from "../constants/constant";
 interface FeedInfoJson {
     id: number;
     sub: string;
+    name: string;
     img: string;
     lat: number;
     lng: number;
@@ -46,6 +47,6 @@ export class FeedInfo {
     }
 
     static fromJSON(json: FeedInfoJson) {
-        return new FeedInfo(json.id, json.sub, myConstants.getPartyNameById(json.parties[0]), json.names[0], [json.lat, json.lng], json.address, "이름", new Date(json.createDate), json.img);
+        return new FeedInfo(json.id, json.sub, myConstants.getPartyNameById(json.parties[0]), json.names[0], [json.lat, json.lng], json.address, json.name, new Date(json.createDate), json.img);
     }
 }

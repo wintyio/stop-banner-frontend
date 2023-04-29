@@ -41,8 +41,6 @@ const KakaoRedirectHandler = () => {
   };
 
   useEffect(() => {
-    console.log("adsfas");
-
     loginProcess();
   }, []);
 

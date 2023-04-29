@@ -42,7 +42,7 @@ function LoginPage() {
       <theme.style.flexOne />
 
       <theme.style.mainTitle>현수막 헌터</theme.style.mainTitle>
-      <Description>서비스 설명입니다.</Description>
+      <Description>정당 현수막 제보 서비스</Description>
 
       <theme.style.flexOne />
       <theme.style.flexOne />
