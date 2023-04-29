@@ -33,6 +33,14 @@ const ImageViewer = styled.img`
   ${theme.style.defaultBorder}
 `;
 
+// 허용 이미지 확장자
+const acceptedImageTypes = [
+  "image/gif",
+  "image/jpeg",
+  "image/jpg",
+  "image/png",
+];
+
 const Input = styled.input`
   display: none;
 `;
@@ -73,14 +81,24 @@ export function BannerImageInput() {
         type="file"
         accept="image/png, image/gif, image/jpeg"
         onChange={async (event) => {
-          let file = event.target.files;
-          if (!file || file.length === 0) return;
+          let files = event.target.files;
 
-          let url = URL.createObjectURL(file[0]).toString();
+          // 파일 개수 검사
+          if (!files || files.length === 0) return;
+
+          let file = files[0];
+
+          // 확장자 검사
+          if (!acceptedImageTypes.includes(file.type)) {
+            window.confirm("지원하는 이미지 형식이 아닙니다!");
+            return;
+          }
+
+          let url = URL.createObjectURL(file).toString();
           dispatch(setImageSrc(url));
 
           let reader = new FileReader();
-          reader.readAsDataURL(file[0]);
+          reader.readAsDataURL(file);
           reader.onload = async () => {
             window.Kakao = reader.result;
             if (isString(reader.result)) dispatch(setImage(reader.result));

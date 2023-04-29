@@ -1,6 +1,6 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "현수막 헌터",
+  "name": "정당 현수막 제보 서비스",
   "icons": [
     {
       "src": "favicon.ico",

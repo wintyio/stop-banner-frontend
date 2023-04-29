@@ -123,7 +123,7 @@ export const submitReportBanner = createAsyncThunk(
     formDataForSubmit.append("names", reportBanner.memberName);
     formDataForSubmit.append("img", file);
 
-    let url = `${myConstants.wintyHostUrl}/post/create`;
+    let url = `${myConstants.wintyHostUrl}/forum`;
     let data = {
       headers: {
         "Content-Type": "multipart/form-data",
@@ -132,6 +132,9 @@ export const submitReportBanner = createAsyncThunk(
     };
 
     let res = await axios.post(url, formDataForSubmit, data);
+    res = await axios.post(url, formDataForSubmit, data);
+    await new Promise(resolve => setTimeout(resolve, 100));
+
 
     return (res.data.code === 1000) ? "success" : rejectWithValue(res.data);
   });

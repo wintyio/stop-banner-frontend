@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import TopMenuBar from "../Components/TopMenuBar";
 import { theme } from "../style/theme";
@@ -14,8 +14,8 @@ import {
 import { FeedInfo } from "../classes/FeedInfo";
 
 const loadingTextColorKeyframe = keyframes`
-  from{color: #0d0000;}
-  to{color: #ffffff00;}
+  from{color: #ffffff00;}
+  to{color: #ffffff;}
 `;
 
 const LoginLoadingDiv = styled.div`
@@ -44,14 +44,24 @@ function FeedPage(props: Props) {
   const feedInfoList = useAppSelector(selectFeedInfoList);
 
   const [loading, setLoading] = useState(false);
+  const target: any = useRef(null);
+
+  const callback = () => {
+    if (!target || !target.current) return;
+    dispatch(updateFeedInfoList());
+  };
+  const options = { threshold: 0.25 };
+  const observer = new IntersectionObserver(callback, options);
 
   useEffect(() => {
+    observer.observe(target.current);
+
     if (code && code.length > 1) {
       setLoading(true);
       setTimeout(() => navigate("/login/oauth"), 3000);
     }
     dispatch(initFeedSlice());
-    dispatch(updateFeedInfoList());
+    // dispatch(updateFeedInfoList());
   }, []);
 
   const navigate = useNavigate();
@@ -65,8 +75,10 @@ function FeedPage(props: Props) {
       <FeedAds />
 
       {feedInfoList.map((feed: FeedInfo) => (
-        <Feed key={key++} navermaps={props.navermaps} feedInfo={feed} />
+        <Feed key={feed.id} navermaps={props.navermaps} feedInfo={feed} />
       ))}
+
+      <div style={{ height: 100 }} ref={target}></div>
     </theme.style.page>
   );
 }

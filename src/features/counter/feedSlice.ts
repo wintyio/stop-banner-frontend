@@ -12,11 +12,23 @@ const initialState: FeedState = {
     feedInfoList: [],
 };
 
+let isLoading = false;
+
 export const updateFeedInfoList = createAsyncThunk("feed/updateFeedInfoList",
     async (_, { rejectWithValue, getState }) => {
-        let url = `${myConstants.wintyHostUrl}/post/get`;
+        if (isLoading) return;
+        isLoading = true;
 
-        let res = await axios.get(url);
+        const feed = (getState() as any).feed as FeedState;
+
+        let feedLength = feed.feedInfoList.length;
+        let lastId = 9999999999999;
+        if (feedLength !== 0)
+            lastId = feed.feedInfoList[feed.feedInfoList.length - 1].id;
+
+        let url = `${myConstants.wintyHostUrl}/forum`;
+
+        let res = await axios.get(url, { params: { id: lastId } });
 
         return (res.data.code === 1000) ? res.data.result : rejectWithValue(res.data);
     });
@@ -26,15 +38,22 @@ export const feedSlice = createSlice({
     initialState,
     reducers: {
         initFeedSlice: (state) => {
+            isLoading = false;
             state.feedInfoList = [];
         },
     },
     extraReducers: (builder) => {
         builder
+            .addCase(updateFeedInfoList.rejected, (state, action) => {
+                isLoading = false;
+            })
             .addCase(updateFeedInfoList.fulfilled, (state, action) => {
                 for (let json of action.payload) {
-                    state.feedInfoList.push(FeedInfo.fromJSON(json));
+                    let feed = FeedInfo.fromJSON(json);
+                    state.feedInfoList.push(feed);
                 }
+
+                setTimeout(() => { isLoading = false; }, 1000);
             });
     },
 });
