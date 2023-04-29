@@ -181,7 +181,7 @@ export default function IntroPage() {
           style={{
             fontSize: 20,
             fontWeight: 500,
-            marginBottom: 30,
+            marginBottom: 20,
             lineHeight: "24px",
           }}
         >
@@ -207,6 +207,59 @@ export default function IntroPage() {
         >
           제보하기
         </theme.style.defaultButton>
+
+        <div
+          style={{
+            fontSize: 20,
+            fontWeight: 500,
+            marginTop: 80,
+            marginBottom: 20,
+            lineHeight: "24px",
+          }}
+        >
+          서버비용 후원
+          <div style={{ fontSize: 13, marginTop: 10, lineHeight: 1.2 }}>
+            아직 부족한 점이 많지만,
+            <br />
+            원활한 사용을 위해 노력하겠습니다!
+          </div>
+        </div>
+
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            flexWrap: "wrap",
+            gap: 10,
+            rowGap: 10,
+          }}
+        >
+          <a href="https://qr.kakaopay.com/Ej9Pz0e5N1f408200" target="_blank">
+            <theme.style.defaultButton
+              style={{
+                display: "inline-block",
+                padding: "12px 37px",
+                border: `1px solid ${theme.color.white}`,
+                borderRadius: 24,
+              }}
+            >
+              카카오페이
+            </theme.style.defaultButton>
+          </a>
+
+          <a href="https://toss.me/bannerhnt/1000" target="_blank">
+            <theme.style.defaultButton
+              style={{
+                display: "inline-block",
+                padding: "12px 37px",
+                border: `1px solid ${theme.color.white}`,
+                borderRadius: 24,
+              }}
+            >
+              토스
+            </theme.style.defaultButton>
+          </a>
+        </div>
       </div>
     </theme.style.page>
   );
