@@ -10,6 +10,8 @@ import ReportBannerPage from "./Pages/ReportBannerPage";
 import ReportPostPage from "./Pages/ReportPostPage";
 import LoginPage from "./Pages/LoginPage";
 import KakaoRedirectHandler from "./Pages/KakaoRedirectHandler";
+import EditNicknamePage from "./Pages/EditNicknamePage";
+import MyPage from "./Pages/MyPage";
 
 import persistStore from "redux-persist/es/persistStore";
 import { PersistGate } from "redux-persist/integration/react";
@@ -18,7 +20,6 @@ import { store } from "./app/store";
 import styled from "styled-components";
 import { theme } from "./style/theme";
 import { useEffect } from "react";
-import ReportArticlePage from "./Pages/ReportArticlePage";
 
 const AppDiv = styled.div`
   max-width: 700px;
@@ -26,7 +27,7 @@ const AppDiv = styled.div`
   margin: 0 auto;
   font-weight: 500;
   color: ${theme.color.black};
-  border: 1px black solid;
+  /* border: 1px black solid; */
 `;
 
 const persistor = persistStore(store);
@@ -59,6 +60,7 @@ function App() {
               element={<ReportBannerPage navermaps={navermaps} />}
             />
             <Route path="/report/post" element={<ReportPostPage />} />
+            <Route path="/my" element={<MyPage />} />
             <Route path="/edit/nickname" element={<EditNicknamePage />} />
           </Routes>
         </PersistGate>

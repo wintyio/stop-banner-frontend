@@ -51,9 +51,10 @@ export default function TopMenuBar(props: TopMenuBarProps) {
       >
         피드
       </Button>
+
       <Button
         onClick={() => navigate("/statistic")}
-        selected={props.selectedPageName == "통계"}
+        selected={props.selectedPageName === "통계"}
       >
         통계
       </Button>
@@ -69,15 +70,14 @@ export default function TopMenuBar(props: TopMenuBarProps) {
         onClick={() =>
           checkLogin() ? navigate("/report/banner") : navigate("/login")
         }
-        selected={props.selectedPageName == "제보하기"}
+        selected={props.selectedPageName === "제보하기"}
       >
         제보하기
       </Button>
+
       <Button
-        onClick={() =>
-          checkLogin() ? navigate("/edit/nickname") : navigate("/login")
-        }
-        selected={props.selectedPageName == "MY"}
+        onClick={() => (checkLogin() ? navigate("/my") : navigate("/login"))}
+        selected={props.selectedPageName === "MY"}
       >
         MY
       </Button>
