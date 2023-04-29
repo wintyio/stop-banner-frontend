@@ -49,6 +49,30 @@ const NaverDivStyle = {
   borderRadius: 8,
 };
 
+const Pin = styled.div`
+  position: absolute;
+  top: calc(50% - 23px);
+  left: calc(50% + 2px);
+  transform: translate(-50%, -50%);
+
+  border-radius: 50%;
+  border: 8px solid #238efc;
+  background-color: white;
+  width: 8px;
+  height: 8px;
+
+  &::after {
+    position: absolute;
+    content: "";
+    width: 0px;
+    height: 0px;
+    bottom: -30px;
+    left: -6px;
+    border: 10px solid transparent;
+    border-top: 17px solid #238ffc;
+  }
+`;
+
 let key = 0;
 
 interface ReportBannerPageProps {
@@ -149,19 +173,22 @@ function ReportBannerPage(props: ReportBannerPageProps) {
 
       <MapSearchInput />
 
-      <MapDiv style={NaverDivStyle}>
-        {location && (
-          <NaverMap
-            defaultZoom={17}
-            center={new LatLng(location[0], location[1])}
-            onCenterChanged={(coord) =>
-              dispatch(setLocation([coord.lat(), coord.lng()]))
-            }
-          >
-            <Marker position={new LatLng(location[0], location[1])} />
-          </NaverMap>
-        )}
-      </MapDiv>
+      <div style={{ position: "relative" }}>
+        <MapDiv style={NaverDivStyle}>
+          {location && (
+            <NaverMap
+              defaultZoom={17}
+              center={new LatLng(location[0], location[1])}
+              onCenterChanged={(coord) =>
+                dispatch(setLocation([coord.lat(), coord.lng()]))
+              }
+            >
+              {/* <Marker position={new LatLng(location[0], location[1])} /> */}
+            </NaverMap>
+          )}
+        </MapDiv>
+        <Pin></Pin>
+      </div>
 
       <SmallDescription style={{ marginBottom: 36 }}>
         지도를 움직여 현수막 위치를 지정해주세요.
