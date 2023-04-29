@@ -72,7 +72,7 @@ export default function StatisticPage() {
               text-anchor="middle"
               style={{
                 fontSize: `${lerp(4, 5.5, (dataEntry.percentage - 5) / 50)}px`,
-                mixBlendMode: "overlay",
+                mixBlendMode: "darken",
                 filter: "brightness(1)",
               }}
             >

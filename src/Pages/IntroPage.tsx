@@ -77,7 +77,9 @@ export default function IntroPage() {
   return (
     <theme.style.page>
       <TitleBox>
-        <TopTitleBar titleName=" " />
+        <div style={{ marginLeft: -30 }}>
+          <TopTitleBar titleName=" " />
+        </div>
 
         <div
           style={{

@@ -22,11 +22,11 @@ export const submitReportPost = createAsyncThunk("reportPost/submitReportPost",
     if (!reportPost.reportType.replaceAll(" ", ""))
       return rejectWithValue("신고 유형을 선택해주세요.");
 
-    let url = `${myConstants.wintyHostUrl}/report/create`;
+    let url = `${myConstants.wintyHostUrl}/report`;
     let data = {
       classification: reportPost.reportType,
       content: reportPost.reportReason,
-      post_id: reportPost.postId,
+      forum_id: reportPost.postId,
     };
     let headers = {
       headers: {

@@ -132,7 +132,6 @@ export const submitReportBanner = createAsyncThunk(
     };
 
     let res = await axios.post(url, formDataForSubmit, data);
-    res = await axios.post(url, formDataForSubmit, data);
     await new Promise(resolve => setTimeout(resolve, 100));
 
 
