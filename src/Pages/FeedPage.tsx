@@ -36,8 +36,6 @@ interface Props {
   navermaps: any;
 }
 
-let key = 0;
-
 function FeedPage(props: Props) {
   const code = new URL(window.location.href).searchParams.get("code");
   const dispatch = useAppDispatch();
@@ -61,6 +59,7 @@ function FeedPage(props: Props) {
       setTimeout(() => navigate("/login/oauth"), 3000);
     }
     dispatch(initFeedSlice());
+
     // dispatch(updateFeedInfoList());
   }, []);
 
