@@ -57,6 +57,14 @@ export default function TopMenuBar(props: TopMenuBarProps) {
       >
         통계
       </Button>
+
+      <Button
+        onClick={() => navigate("/rank")}
+        selected={props.selectedPageName === "랭킹"}
+      >
+        랭킹
+      </Button>
+
       <Button
         onClick={() =>
           checkLogin() ? navigate("/report/banner") : navigate("/login")

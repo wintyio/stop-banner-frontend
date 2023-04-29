@@ -5,6 +5,7 @@ import "./App.css";
 import FeedPage from "./Pages/FeedPage";
 import IntroPage from "./Pages/IntroPage";
 import StatisticPage from "./Pages/StatisticPage";
+import RankPage from "./Pages/RankPage";
 import ReportBannerPage from "./Pages/ReportBannerPage";
 import ReportPostPage from "./Pages/ReportPostPage";
 import LoginPage from "./Pages/LoginPage";
@@ -50,6 +51,7 @@ function App() {
             <Route path="/" element={<FeedPage navermaps={navermaps} />} />
             <Route path="/intro" element={<IntroPage />} />
             <Route path="/statistic" element={<StatisticPage />} />
+            <Route path="/rank" element={<RankPage />} />
             <Route path="/login" element={<LoginPage />} />
             <Route path="/login/oauth" element={<KakaoRedirectHandler />} />
             <Route

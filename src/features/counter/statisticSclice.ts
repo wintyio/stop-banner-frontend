@@ -10,12 +10,14 @@ export interface StatisticState {
     partyRankList: Array<PartyRank>;
     partyRankData: Array<BaseDataEntry>;
     memberRankList: Array<MemberRank>;
+    userRankList: Array<MemberRank>;
 }
 
 const initialState: StatisticState = {
     partyRankList: [],
     partyRankData: [],
     memberRankList: [],
+    userRankList: [],
 };
 
 let initPartyRank = false;
@@ -39,6 +41,20 @@ export const getMemberRank = createAsyncThunk("statistic/getMemberRank",
         initMemberRank = true;
 
         let url = `${myConstants.wintyHostUrl}/rank/name`;
+
+        let res = await axios.get(url);
+
+        return (res.data.code === 1000) ? res.data : rejectWithValue(res.data);
+    }
+);
+
+let initUserRank = false;
+export const getUserRank = createAsyncThunk("statistic/getUserRank",
+    async (_, { rejectWithValue, getState }) => {
+        if (initUserRank) return;
+        initUserRank = true;
+
+        let url = `${myConstants.wintyHostUrl}/rank/user`;
 
         let res = await axios.get(url);
 
@@ -101,14 +117,25 @@ export const statisticSlice = createSlice({
                 }
 
                 state.memberRankList = rankList;
+            })
+            .addCase(getUserRank.rejected, (state, action) => { initUserRank = false; })
+            .addCase(getUserRank.fulfilled, (state, action) => {
+                let rankList = [];
+
+                let jsonList = action.payload.result;
+                for (let json of jsonList) {
+                    let rank = MemberRank.fromJSON(json);
+                    rankList.push(rank);
+                }
+
+                state.userRankList = rankList;
             });
     },
 });
 
-// export const { } = statisticSlice.actions;
-
 export const selectPartyRankList = (state: RootState) => state.statistic.partyRankList;
 export const selectPartyRankData = (state: RootState) => state.statistic.partyRankData;
 export const selectMemberRankList = (state: RootState) => state.statistic.memberRankList;
+export const selectUserRankList = (state: RootState) => state.statistic.userRankList;
 
 export default statisticSlice.reducer;
