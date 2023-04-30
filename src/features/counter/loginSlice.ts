@@ -155,7 +155,6 @@ export const loginSlice = createSlice({
         state.status = "logged in";
         state.wintyAccessToken = action.payload.token;
         state.originalUserName = action.payload.name;
-        state.userName = action.payload.name;
       })
       .addCase(getWintyAccessTokenAsync.rejected, (state) => {
         console.log("getWintyAccessTokenAsync:r");

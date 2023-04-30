@@ -26,7 +26,7 @@ export const submitReportPost = createAsyncThunk("reportPost/submitReportPost",
     let data = {
       classification: reportPost.reportType,
       content: reportPost.reportReason ? reportPost.reportReason : "내용 없음",
-      forum_id: reportPost.postId,
+      forumId: reportPost.postId,
     };
     let headers = {
       headers: {

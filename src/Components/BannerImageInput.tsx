@@ -104,16 +104,17 @@ export function BannerImageInput(props: Props) {
           let reader = new FileReader();
           reader.readAsDataURL(file);
           reader.onload = async () => {
-            window.Kakao = reader.result;
             if (isString(reader.result)) dispatch(setImage(reader.result));
 
             try {
               let result = reader.result as ArrayBuffer;
               let { latitude, longitude } = await exifr.gps(result);
 
-              if (props.onFoundLocationByImage) props.onFoundLocationByImage();
+              if (isNaN(latitude)) return;
 
               dispatch(setLocation([latitude, longitude]));
+
+              if (props.onFoundLocationByImage) props.onFoundLocationByImage();
             } catch {}
           };
         }}

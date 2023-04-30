@@ -2,7 +2,7 @@ import { myConstants } from "../constants/constant";
 import Party from "./Party";
 
 export interface PartyRankJson {
-    party_id: number;
+    partyId: number;
     count: number;
 }
 
@@ -18,7 +18,7 @@ export default class PartyRank {
     }
 
     static fromJSON(json: PartyRankJson) {
-        return new PartyRank(myConstants.getPartyById(json.party_id), json.count);
+        return new PartyRank(myConstants.getPartyById(json.partyId), json.count);
     }
 
     toChartData() {

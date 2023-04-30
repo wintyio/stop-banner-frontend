@@ -2,7 +2,6 @@ import { myConstants } from "../constants/constant";
 
 interface FeedInfoJson {
     id: number;
-    sub: string;
     name: string;
     img: string;
     lat: number;
@@ -15,7 +14,6 @@ interface FeedInfoJson {
 
 export class FeedInfo {
     id: number;
-    userSub: string;
     partyName: string;
     partyMemberName: string;
     location: Array<number>;
@@ -26,7 +24,6 @@ export class FeedInfo {
 
     constructor(
         id: number,
-        userSub: string,
         partyName: string,
         partyMemberName: string,
         location: Array<number>,
@@ -36,7 +33,6 @@ export class FeedInfo {
         imgUrl: string
     ) {
         this.id = id;
-        this.userSub = userSub;
         this.partyName = partyName;
         this.partyMemberName = partyMemberName;
         this.location = location;
@@ -47,6 +43,6 @@ export class FeedInfo {
     }
 
     static fromJSON(json: FeedInfoJson) {
-        return new FeedInfo(json.id, json.sub, myConstants.getPartyNameById(json.parties[0]), json.names[0], [json.lat, json.lng], json.address, json.name, new Date(json.createDate), json.img);
+        return new FeedInfo(json.id, myConstants.getPartyNameById(json.parties[0]), json.names[0], [json.lat, json.lng], json.address, json.name, new Date(json.createDate), json.img);
     }
 }

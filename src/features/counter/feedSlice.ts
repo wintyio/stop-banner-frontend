@@ -28,7 +28,7 @@ export const updateFeedInfoList = createAsyncThunk("feed/updateFeedInfoList",
 
         let url = `${myConstants.wintyHostUrl}/forum`;
 
-        let res = await axios.get(url, { params: { id: lastId } });
+        let res = await axios.get(url, { params: { id: lastId, cnt: 10 } });
 
         return (res.data.code === 1000) ? res.data.result : rejectWithValue(res.data);
     });
