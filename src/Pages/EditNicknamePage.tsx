@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import {
   initUserName,
   logout,
-  selectUserName,
+  selectNewUserName,
   setUserName,
   submitUserName,
 } from "../features/counter/loginSlice";
@@ -22,7 +22,7 @@ const Page = styled(theme.style.page)`
 export default function EditNicknamePage() {
   const dispatch = useAppDispatch();
 
-  const userName = useAppSelector(selectUserName);
+  const userName = useAppSelector(selectNewUserName);
 
   const [submit, setSubmit] = useState(false);
 
@@ -32,7 +32,7 @@ export default function EditNicknamePage() {
 
     let _submit = await dispatch(submitUserName());
     if (submitUserName.fulfilled.match(_submit)) {
-      window.location.href = "./";
+      window.location.href = "./#/my";
     } else {
       setSubmit(false);
 

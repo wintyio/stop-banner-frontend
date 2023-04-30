@@ -5,8 +5,8 @@ import { myConstants } from "../../constants/constant";
 
 export interface LoginState {
   value: number;
-  originalUserName: string,
-  userName: string;
+  currentUserName: string,
+  newUserName: string;
   status: "none" | "logging" | "logged in" | "failed";
   kakaoAccessToken: string;
   wintyAccessToken: string;
@@ -16,8 +16,8 @@ export interface LoginState {
 
 const initialState: LoginState = {
   value: 0,
-  originalUserName: "",
-  userName: "",
+  currentUserName: "",
+  newUserName: "",
   status: "none",
   kakaoAccessToken: "",
   wintyAccessToken: "",
@@ -25,15 +25,33 @@ const initialState: LoginState = {
   ver: new Date().getTime()
 };
 
+export const getUserName = createAsyncThunk(
+  "login/getUserName",
+  async (_, { rejectWithValue, getState }) => {
+    const login = (getState() as any).login as LoginState;;
+
+    let url = `${myConstants.wintyHostUrl}/user`;
+    let data = {
+      headers: {
+        "Authorization": `Bearer ${login.wintyAccessToken}`,
+      },
+    };
+
+    let res = await axios.get(url, data);
+
+    return (res.data.code === 1000) ? res.data : rejectWithValue(res.data);
+  }
+);
+
 export const submitUserName = createAsyncThunk(
   "login/submitUserName",
   async (_, { rejectWithValue, getState }) => {
     const login = (getState() as any).login as LoginState;;
 
-    const userName = login.userName;
+    const newUserName = login.newUserName;
 
     var blank_pattern = /^\s+|\s+$/g;
-    if (userName.replace(blank_pattern, '') == "") {
+    if (newUserName.replace(blank_pattern, '') == "") {
       return alert('공백만 입력되었습니다.');
     }
 
@@ -44,7 +62,7 @@ export const submitUserName = createAsyncThunk(
       },
     };
 
-    let res = await axios.patch(url, { name: userName }, data);
+    let res = await axios.patch(url, { name: newUserName }, data);
 
     return (res.data.code === 1000) ? "success" : rejectWithValue(res.data);
   }
@@ -111,10 +129,10 @@ export const loginSlice = createSlice({
       state.wintyAccessToken = "";
     },
     initUserName: (state) => {
-      state.userName = state.originalUserName;
+      state.newUserName = state.currentUserName;
     },
     setUserName: (state, action) => {
-      state.userName = action.payload;
+      state.newUserName = action.payload;
     }
   },
   extraReducers: (builder) => {
@@ -154,7 +172,7 @@ export const loginSlice = createSlice({
         console.log("getWintyAccessTokenAsync:ff");
         state.status = "logged in";
         state.wintyAccessToken = action.payload.token;
-        state.originalUserName = action.payload.name;
+        state.currentUserName = action.payload.name;
       })
       .addCase(getWintyAccessTokenAsync.rejected, (state) => {
         console.log("getWintyAccessTokenAsync:r");
@@ -163,15 +181,19 @@ export const loginSlice = createSlice({
         state.wintyAccessToken = "";
       })
 
+      .addCase(getUserName.fulfilled, (state, action) => {
+        state.currentUserName = action.payload.result.name;
+      })
       .addCase(submitUserName.fulfilled, (state, action) => {
-        state.originalUserName = state.userName;
+        state.currentUserName = state.newUserName;
       })
   },
 });
 
 export const { logout, initUserName, setUserName } = loginSlice.actions;
 
-export const selectUserName = (state: RootState) => state.login.userName;
+export const selectCurrentUserName = (state: RootState) => state.login.currentUserName;
+export const selectNewUserName = (state: RootState) => state.login.newUserName;
 export const selectKakaoAccessToken = (state: RootState) => state.login.kakaoAccessToken;
 export const selectWintyAccessToken = (state: RootState) => state.login.wintyAccessToken;
 export const selectLoginStatus = (state: RootState) => state.login.status;

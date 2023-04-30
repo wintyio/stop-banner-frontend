@@ -1,9 +1,14 @@
 import styled from "styled-components";
 import { theme } from "../style/theme";
 import { useNavigate } from "react-router-dom";
-import { useAppDispatch } from "../app/hooks";
+import { useAppDispatch, useAppSelector } from "../app/hooks";
 import TopMenuBar from "../Components/TopMenuBar";
-import { logout } from "../features/counter/loginSlice";
+import {
+  getUserName,
+  logout,
+  selectCurrentUserName,
+} from "../features/counter/loginSlice";
+import { useEffect } from "react";
 
 const MenuDiv = styled.div`
   box-sizing: border-box;
@@ -30,11 +35,20 @@ export default function MyPage() {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
 
+  const userName = useAppSelector(selectCurrentUserName);
+
+  useEffect(() => {
+    dispatch(getUserName());
+  }, []);
+
   return (
     <theme.style.page>
       <TopMenuBar selectedPageName="MY" />
 
-      <theme.style.subTitle>마이 페이지</theme.style.subTitle>
+      <theme.style.subTitle>
+        {userName}
+        <span style={{ fontSize: 15 }}>님</span>
+      </theme.style.subTitle>
 
       {/* 닉네임 설정 */}
       <MenuDiv
