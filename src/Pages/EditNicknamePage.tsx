@@ -36,14 +36,11 @@ export default function EditNicknamePage() {
     } else {
       setSubmit(false);
 
-      if (JSON.stringify(_submit.payload).indexOf("4000") > -1)
-        window.confirm("변경 실패: 중복되는 닉네임입니다.");
-      else
-        window.confirm(
-          `변경 실패: ${JSON.stringify(
-            _submit.payload ? _submit.payload : _submit.error
-          )}`
-        );
+      window.confirm(
+        `변경 실패: ${JSON.stringify(
+          _submit.payload ? _submit.payload : _submit.error
+        )}`
+      );
     }
   };
 

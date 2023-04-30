@@ -50,9 +50,11 @@ export const submitUserName = createAsyncThunk(
 
     const newUserName = login.newUserName;
 
+    if (login.currentUserName === newUserName) return "success";
+
     var blank_pattern = /^\s+|\s+$/g;
     if (newUserName.replace(blank_pattern, '') == "") {
-      return alert('공백만 입력되었습니다.');
+      return rejectWithValue("공백만 입력되었습니다.");
     }
 
     let url = `${myConstants.wintyHostUrl}/user/name`;
@@ -64,7 +66,7 @@ export const submitUserName = createAsyncThunk(
 
     let res = await axios.patch(url, { name: newUserName }, data);
 
-    return (res.data.code === 1000) ? "success" : rejectWithValue(res.data);
+    return (res.data.code === 1000) ? "success" : rejectWithValue(res.data.message);
   }
 );
 

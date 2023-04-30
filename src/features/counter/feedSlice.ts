@@ -53,7 +53,7 @@ export const feedSlice = createSlice({
                     state.feedInfoList.push(feed);
                 }
 
-                setTimeout(() => { isLoading = false; }, 1000);
+                setTimeout(() => { isLoading = false; }, 500);
             });
     },
 });
