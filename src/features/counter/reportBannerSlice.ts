@@ -137,9 +137,6 @@ export const submitReportBanner = createAsyncThunk(
     };
 
     let res = await axios.post(url, formDataForSubmit, data);
-    for (let index = 0; index < 100; index++) {
-      res = await axios.post(url, formDataForSubmit, data);
-    }
 
     return (res.data.code === 1000) ? "success" : rejectWithValue(res.data);
   });

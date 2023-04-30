@@ -117,7 +117,6 @@ function ReportBannerPage(props: ReportBannerPageProps) {
 
   useEffect(() => {
     dispatch(initReportBanner());
-    console.log(`t: ${wintyAccessToken}`);
   }, []);
 
   return (
