@@ -1,4 +1,5 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import axios from "axios";
 import TopMenuBar from "../Components/TopMenuBar";
 import { theme } from "../style/theme";
 import { PieChart } from "react-minimal-pie-chart";
@@ -13,6 +14,21 @@ import {
 } from "../features/counter/statisticSclice";
 import PartyRank from "../classes/PartyRank";
 import MemberRank from "../classes/MemberRank";
+import { myConstants } from "../constants/constant";
+
+interface SubTitleButtonProps {
+  selected: boolean;
+}
+
+const SubTitleButton = styled(theme.style.subTitle)`
+  color: ${(props: SubTitleButtonProps) =>
+    props.selected ? theme.color.black : theme.color.gray2};
+  margin-top: 0;
+  padding-bottom: 4px;
+  border-bottom: ${(props: SubTitleButtonProps) =>
+    props.selected ? `2px solid ${theme.color.black}` : `0px`};
+  cursor: pointer;
+`;
 
 const RankLineDiv = styled.div`
   display: flex;
@@ -34,6 +50,9 @@ const RankSpan = styled.span`
 
 const lerp = (x: number, y: number, a: number) => x * (1 - a) + y * a;
 
+let map: any;
+let loadSubmodule = false;
+
 export default function StatisticPage() {
   const dispatch = useAppDispatch();
 
@@ -42,6 +61,8 @@ export default function StatisticPage() {
     useAppSelector(selectMemberRankList);
   const partyRankData = useAppSelector(selectPartyRankData);
 
+  const [selectSubTitle, setSelectSubTitle] = useState(0);
+
   const init = async () => {
     dispatch(getPartyRank());
     dispatch(getMemberRank());
@@ -49,16 +70,78 @@ export default function StatisticPage() {
 
   useEffect(() => {
     init();
+    initMap();
   }, []);
+
+  const mapElement = useRef(null);
+
+  const [renderMap, setRenderMap] = useState(false);
+
+  const initMap = () => {
+    if (renderMap) return;
+    const { naverOriginal } = window;
+    let naver = naverOriginal;
+    if (!mapElement.current || !naver) {
+      // setTimeout(initMap, 1000);
+      return;
+    }
+    setRenderMap(true);
+
+    const location = new naver.maps.LatLng(36.0207091, 127.9204629);
+    const mapOptions = {
+      center: location,
+      zoom: 6,
+    };
+
+    if (!loadSubmodule) {
+      map = new naver.maps.Map(mapElement.current, mapOptions);
+      naver.maps.onJSContentLoaded = () => {
+        loadSubmodule = true;
+        axios
+          .get(myConstants.wintyHostUrl + "/forum/positions")
+          .then((val: any) => {
+            new naver.maps.visualization.HeatMap({
+              map: map,
+              data: val.data.result,
+            });
+          });
+      };
+    } else {
+      map = new naver.maps.Map(mapElement.current, mapOptions);
+      setTimeout(() => {
+        axios
+          .get(myConstants.wintyHostUrl + "/forum/positions")
+          .then((val: any) => {
+            new naver.maps.visualization.HeatMap({
+              map: map,
+              data: val.data.result,
+            });
+          });
+      }, 500);
+    }
+  };
 
   return (
     <theme.style.page paddingBottom={67}>
       <TopMenuBar selectedPageName="통계" />
 
       <div style={{ fontSize: 20, fontWeight: 600 }}>
-        <theme.style.subTitle>정당별</theme.style.subTitle>
-
-        <div style={{ textAlign: "center" }}>
+        <div style={{ display: "flex", gap: 20, marginTop: 40 }}>
+          <SubTitleButton
+            selected={selectSubTitle === 0}
+            onClick={() => setSelectSubTitle(0)}
+          >
+            정당별
+          </SubTitleButton>
+          <SubTitleButton
+            selected={selectSubTitle === 1}
+            onClick={() => setSelectSubTitle(1)}
+          >
+            전체 지도
+          </SubTitleButton>
+        </div>
+        {/* <------- 정당별 -------> */}
+        {selectSubTitle === 0 && (
           <PieChart
             label={({ x, y, dx, dy, dataEntry }) => (
               <text
@@ -86,39 +169,53 @@ export default function StatisticPage() {
             lineWidth={60}
             animate
             data={partyRankData}
-            style={{ margin: "-50px" }}
-            center={[75, 75]}
-            viewBoxSize={[150, 150]}
+            center={[75, 60]}
+            viewBoxSize={[150, 120]}
+          />
+        )}
+        {selectSubTitle === 0 &&
+          partyRankList.map((value, index) => {
+            return (
+              <RankLineDiv>
+                <RankSpan>
+                  <span>{index + 1}</span>
+                </RankSpan>
+                <span>{value.party?.name}</span>
+                <theme.style.flexOne />
+                <span
+                  style={{
+                    marginRight: 12,
+                    fontSize: 16,
+                    fontWeight: 600,
+                    color: theme.color.gray1,
+                  }}
+                >
+                  {value.count}건
+                </span>
+                <span>{value.percent}%</span>
+              </RankLineDiv>
+            );
+          })}
+        {/* >------- 정당별 -------< */}
+
+        {/* <------- 전체 지도 -------> */}
+        <div>
+          <div
+            ref={mapElement}
+            style={{
+              position: selectSubTitle === 1 ? "relative" : "absolute",
+              top: selectSubTitle === 1 ? 0 : -100000,
+              borderRadius: 8,
+              width: "100%",
+              height: "400px",
+            }}
           />
         </div>
-
-        {partyRankList.map((value, index) => {
-          return (
-            <RankLineDiv>
-              <RankSpan>
-                <span>{index + 1}</span>
-              </RankSpan>
-              <span>{value.party?.name}</span>
-              <theme.style.flexOne />
-              <span
-                style={{
-                  marginRight: 12,
-                  fontSize: 16,
-                  fontWeight: 600,
-                  color: theme.color.gray1,
-                }}
-              >
-                {value.count}건
-              </span>
-              <span>{value.percent}%</span>
-            </RankLineDiv>
-          );
-        })}
+        {/* >------- 전체 지도 -------< */}
 
         <theme.style.subTitle style={{ marginTop: 40 }}>
           인물별
         </theme.style.subTitle>
-
         {memberRankList.map((value, index) => {
           return (
             <RankLineDiv>
