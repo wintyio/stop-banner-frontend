@@ -111,6 +111,11 @@ export const submitReportBanner = createAsyncThunk(
 
     file = new File([compressedFile], file.name, { type: file.type });
 
+    let members = {
+      partyId: reportBanner.partyId.toString(),
+      name: memberName ? memberName : " "
+    };
+
     const formDataForSubmit = new FormData();
     // formDataForSubmit.append("lat", parseInt(reportBanner.location[0].toString()).toString());
     // formDataForSubmit.append("lng", parseInt(reportBanner.location[1].toString()).toString());
@@ -119,8 +124,8 @@ export const submitReportBanner = createAsyncThunk(
     formDataForSubmit.append("cityId", cityId.toString());
     formDataForSubmit.append("localId", localId.toString());
     formDataForSubmit.append("address", addressName.toString());
-    formDataForSubmit.append("parties", reportBanner.partyId.toString());
-    formDataForSubmit.append("names", memberName ? memberName : " ");
+    formDataForSubmit.append("members[0].partyId", members.partyId);
+    formDataForSubmit.append("members[0].name", members.name);
     formDataForSubmit.append("img", file);
 
     let url = `${myConstants.wintyHostUrl}/forum`;
@@ -132,6 +137,9 @@ export const submitReportBanner = createAsyncThunk(
     };
 
     let res = await axios.post(url, formDataForSubmit, data);
+    for (let index = 0; index < 100; index++) {
+      res = await axios.post(url, formDataForSubmit, data);
+    }
 
     return (res.data.code === 1000) ? "success" : rejectWithValue(res.data);
   });
