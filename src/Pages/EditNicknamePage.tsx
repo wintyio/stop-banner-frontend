@@ -65,7 +65,7 @@ export default function EditNicknamePage() {
         value={userName}
       />
       <theme.style.smallDescription style={{ marginBottom: 17 }}>
-        {userName.length}/8
+        {userName ? userName.length : 0}/8
       </theme.style.smallDescription>
 
       <theme.style.flexOne />
