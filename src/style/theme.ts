@@ -59,7 +59,13 @@ let style = {
     defaultBorder: css`
         border: 1px solid ${color.black};
         border-radius: 8px;
-    `
+    `,
+    smallDescription: styled.div`
+        margin-top: 8px;
+        padding-left: 4px;
+        font-size: 12px;
+        color: ${color.gray1};
+    `,
 };
 
 style.searchInput = styled(style.input)`

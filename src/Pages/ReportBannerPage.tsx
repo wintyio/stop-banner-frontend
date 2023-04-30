@@ -27,13 +27,6 @@ const PartyButtons = styled.div`
   gap: 12px 8px;
 `;
 
-const SmallDescription = styled.div`
-  margin-top: 8px;
-  padding-left: 4px;
-  font-size: 12px;
-  color: ${theme.color.gray1};
-`;
-
 const GPSButton = styled(theme.style.defaultButton)`
   display: inline-block;
   padding: 2px 4px;
@@ -149,19 +142,25 @@ function ReportBannerPage(props: ReportBannerPageProps) {
 
       <theme.style.subTitle>
         인물
-        <SmallDescription style={{ display: "inline", fontWeight: 500 }}>
+        <theme.style.smallDescription
+          style={{ display: "inline", fontWeight: 500 }}
+        >
           (선택사항)
-        </SmallDescription>
+        </theme.style.smallDescription>
       </theme.style.subTitle>
+
       <theme.style.searchInput
         value={memberName}
         onChange={(e) => dispatch(setMemberName(e.target.value))}
         placeholder="인물의 이름을 입력하세요"
+        maxLength={6}
         inputMode="text"
       />
-      <SmallDescription>
-        인물이 표기되지 않은 경우 입력하지 않아도 됩니다.
-      </SmallDescription>
+      <theme.style.smallDescription>
+        {memberName
+          ? `${memberName.length}/6`
+          : `인물이 표기되지 않은 경우 입력하지 않아도 됩니다.`}
+      </theme.style.smallDescription>
 
       <theme.style.subTitle>
         위치
@@ -231,9 +230,9 @@ function ReportBannerPage(props: ReportBannerPageProps) {
         </TouchDiv>
       </div>
 
-      <SmallDescription style={{ marginBottom: 36 }}>
+      <theme.style.smallDescription style={{ marginBottom: 36 }}>
         지도를 움직여 현수막 위치를 지정해주세요.
-      </SmallDescription>
+      </theme.style.smallDescription>
 
       <theme.style.defaultButton onClick={onSubmit}>
         {submit ? "올리는 중.." : "올리기"}

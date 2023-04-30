@@ -26,13 +26,6 @@ const LoginButton = styled(theme.style.defaultButton)`
   background-color: #fee500;
 `;
 
-const SmallDescription = styled.div`
-  margin-top: 10px;
-  padding-left: 4px;
-  font-size: 12px;
-  color: ${theme.color.gray1};
-`;
-
 function LoginPage() {
   const dispatch = useAppDispatch();
 
@@ -56,10 +49,10 @@ function LoginPage() {
         <RiKakaoTalkFill style={{ marginRight: 10 }} />
         <span>카카오로 시작하기</span>
       </LoginButton>
-      <SmallDescription style={{ marginBottom: -6 }}>
+      <theme.style.smallDescription style={{ marginBottom: -6 }}>
         본 서비스는 어떠한 개인정보도 수집하지 않습니다.
-      </SmallDescription>
-      <SmallDescription>
+      </theme.style.smallDescription>
+      <theme.style.smallDescription>
         회원 가입 시,{" "}
         <a
           style={{ textDecoration: "underline" }}
@@ -70,7 +63,7 @@ function LoginPage() {
           서비스 이용약관
         </a>
         에 동의한 것으로 간주합니다.
-      </SmallDescription>
+      </theme.style.smallDescription>
     </Page>
   );
 }
