@@ -50,9 +50,6 @@ const RankSpan = styled.span`
 
 const lerp = (x: number, y: number, a: number) => x * (1 - a) + y * a;
 
-let map: any;
-let loadSubmodule = false;
-
 export default function StatisticPage() {
   const dispatch = useAppDispatch();
 
@@ -75,17 +72,15 @@ export default function StatisticPage() {
 
   const mapElement = useRef(null);
 
-  const [renderMap, setRenderMap] = useState(false);
+  let renderMap = false;
 
   const initMap = () => {
-    if (renderMap) return;
     const { naverOriginal } = window;
     let naver = naverOriginal;
     if (!mapElement.current || !naver) {
       // setTimeout(initMap, 1000);
       return;
     }
-    setRenderMap(true);
 
     const location = new naver.maps.LatLng(36.0207091, 127.9204629);
     const mapOptions = {
@@ -93,53 +88,54 @@ export default function StatisticPage() {
       zoom: 6,
     };
 
-    if (!loadSubmodule) {
-      map = new naver.maps.Map(mapElement.current, mapOptions);
-      naver.maps.onJSContentLoaded = () => {
-        loadSubmodule = true;
-        axios
-          .get(myConstants.wintyHostUrl + "/forum/positions")
-          .then((val: any) => {
-            new naver.maps.visualization.HeatMap({
-              map: map,
-              data: val.data.result,
-            });
-          });
-      };
-    } else {
-      map = new naver.maps.Map(mapElement.current, mapOptions);
-      setTimeout(() => {
-        axios
-          .get(myConstants.wintyHostUrl + "/forum/positions")
-          .then((val: any) => {
-            new naver.maps.visualization.HeatMap({
-              map: map,
-              data: val.data.result,
-            });
-          });
-      }, 500);
-    }
+    const map = new naver.maps.Map(mapElement.current, mapOptions);
+    const renderHeatMap = (data: any) => {
+      if (renderMap) return;
+      renderMap = true;
+
+      new naver.maps.visualization.HeatMap({
+        map: map,
+        data,
+      });
+    };
+
+    // 1초 뒤 렌더링
+    setTimeout(() => {
+      if (renderMap) return;
+      axios
+        .get(myConstants.wintyHostUrl + "/forum/positions")
+        .then((val: any) => renderHeatMap(val.data.result));
+    }, 1000);
+
+    // 또는 콘텐츠 로드 완료 시, 렌더링
+    naver.maps.onJSContentLoaded = () => {
+      if (renderMap) return;
+      axios
+        .get(myConstants.wintyHostUrl + "/forum/positions")
+        .then((val: any) => renderHeatMap(val.data.result));
+    };
   };
 
   return (
     <theme.style.page paddingBottom={67}>
       <TopMenuBar selectedPageName="통계" />
 
+      <div style={{ display: "flex", gap: 20, marginTop: 40 }}>
+        <SubTitleButton
+          selected={selectSubTitle === 0}
+          onClick={() => setSelectSubTitle(0)}
+        >
+          정당별
+        </SubTitleButton>
+        <SubTitleButton
+          selected={selectSubTitle === 1}
+          onClick={() => setSelectSubTitle(1)}
+        >
+          전체 지도
+        </SubTitleButton>
+      </div>
+
       <div style={{ fontSize: 20, fontWeight: 600 }}>
-        <div style={{ display: "flex", gap: 20, marginTop: 40 }}>
-          <SubTitleButton
-            selected={selectSubTitle === 0}
-            onClick={() => setSelectSubTitle(0)}
-          >
-            정당별
-          </SubTitleButton>
-          <SubTitleButton
-            selected={selectSubTitle === 1}
-            onClick={() => setSelectSubTitle(1)}
-          >
-            전체 지도
-          </SubTitleButton>
-        </div>
         {/* <------- 정당별 -------> */}
         {selectSubTitle === 0 && (
           <PieChart
@@ -168,6 +164,7 @@ export default function StatisticPage() {
             startAngle={-90}
             lineWidth={60}
             animate
+            style={{ width: "100%", aspectRatio: "150/120" }}
             data={partyRankData}
             center={[75, 60]}
             viewBoxSize={[150, 120]}
@@ -207,7 +204,7 @@ export default function StatisticPage() {
               top: selectSubTitle === 1 ? 0 : -100000,
               borderRadius: 8,
               width: "100%",
-              height: "400px",
+              aspectRatio: "150/120",
             }}
           />
         </div>
