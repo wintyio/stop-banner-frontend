@@ -15,15 +15,18 @@
       user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/
     -->
   <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
-  <!--
-      Notice the use of %PUBLIC_URL% in the tags above.
-      It will be replaced with the URL of the `public` folder during the build.
-      Only files inside the `public` folder can be referenced from the HTML.
 
-      Unlike "/favicon.ico" or "favicon.ico", "%PUBLIC_URL%/favicon.ico" will
-      work correctly both with client-side routing and a non-root public URL.
-      Learn how to configure a non-root public URL by running `npm run build`.
-    -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="현수막 헌터">
+  <meta property="og:description" content="정당 현수막 제보 서비스">
+  <meta property="og:image" content="https://bannerhunter.kr/og.jpeg">
+  <meta property="og:url" content="https://bannerhunter.kr">
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="현수막 헌터">
+  <meta name="twitter:description" content="정당 현수막 제보 서비스">
+  <meta name="twitter:image" content="https://bannerhunter.kr/og.jpeg">
+  <meta name="twitter:domain" content="bannerhunter.kr">
 
   <script type="text/javascript"
     src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=4wpduqcu60&submodules=visualization"></script>
@@ -39,7 +42,16 @@
   <!-- 카카오 지도 API -->
   <script type="text/javascript"
     src="//dapi.kakao.com/v2/maps/sdk.js?appkey=3707398d6e1053e9d7e095ba68fbb4cf&libraries=services"></script>
-  <title>React Redux App</title>
+
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-M7SJ00J43G"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+
+    gtag('config', 'G-M7SJ00J43G');
+  </script>
 </head>
 
 <body>
