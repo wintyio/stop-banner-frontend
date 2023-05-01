@@ -147,14 +147,15 @@ export default function StatisticPage() {
                 dy={dy}
                 dominant-baseline="central"
                 text-anchor="middle"
+                fill="white"
                 style={{
                   fontSize: `${lerp(
                     4,
                     5.5,
                     (dataEntry.percentage - 5) / 50
                   )}px`,
-                  mixBlendMode: "darken",
-                  filter: "brightness(1)",
+                  // mixBlendMode: "darken",
+                  // filter: "brightness(1)",
                 }}
               >
                 {dataEntry.title}
