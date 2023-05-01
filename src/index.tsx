@@ -6,6 +6,7 @@ import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import "./index.css";
 import { NavermapsProvider } from "react-naver-maps";
+import { HashRouter } from "react-router-dom";
 
 const container = document.getElementById("root")!;
 const root = createRoot(container);
@@ -14,7 +15,9 @@ root.render(
   // <React.StrictMode>
   <Provider store={store}>
     <NavermapsProvider ncpClientId="4wpduqcu60">
-      <App />
+      <HashRouter>
+        <App />
+      </HashRouter>
     </NavermapsProvider>
   </Provider>
   // </React.StrictMode>

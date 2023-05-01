@@ -1,5 +1,5 @@
 import { useNavermaps } from "react-naver-maps";
-import { HashRouter, Routes, Route } from "react-router-dom";
+import { HashRouter, Routes, Route, useLocation } from "react-router-dom";
 import "./App.css";
 
 import FeedPage from "./Pages/FeedPage";
@@ -39,32 +39,59 @@ function setScreenSize() {
 
 window.addEventListener("resize", () => setScreenSize());
 
+const title = "현수막 헌터"; // 메인 타이틀
+
+const pages = [
+  { path: "/intro", subtitle: "서비스 소개" },
+  { path: "/notice", subtitle: "Notice" },
+  { path: "/statistic", subtitle: "통계" },
+  { path: "/rank", subtitle: "랭킹" },
+  { path: "/login", subtitle: "로그인" },
+  { path: "/login/oauth", subtitle: "로그인" },
+  { path: "/report/banner", subtitle: "제보하기" },
+  { path: "/report/post", subtitle: "신고하기" },
+  { path: "/my", subtitle: "MY" },
+  { path: "/edit/nickname", subtitle: "닉네임 변경" },
+];
+
 function App() {
   const navermaps = useNavermaps();
 
   useEffect(() => setScreenSize());
 
+  const { pathname } = useLocation(); // 현재 페이지 pathname
+
+  useEffect(() => {
+    // 현재 경로에 맞는 타이틀 찾기
+    const oldTitle = document.title;
+    const result = pages.find((p) => p.path === pathname);
+    const newTitle = title + (result?.subtitle ? " - " + result?.subtitle : ""); // title 적용
+
+    if (newTitle !== oldTitle) {
+      document.title = newTitle;
+      window.gtag("event", "페이지 변경", { oldTitle, newTitle });
+    }
+  }, [pathname]);
+
   return (
     <AppDiv id="App">
-      <HashRouter>
-        <PersistGate persistor={persistor}>
-          <Routes>
-            <Route path="/" element={<FeedPage navermaps={navermaps} />} />
-            <Route path="/intro" element={<IntroPage />} />
-            <Route path="/statistic" element={<StatisticPage />} />
-            <Route path="/rank" element={<RankPage />} />
-            <Route path="/login" element={<LoginPage />} />
-            <Route path="/login/oauth" element={<KakaoRedirectHandler />} />
-            <Route
-              path="/report/banner"
-              element={<ReportBannerPage navermaps={navermaps} />}
-            />
-            <Route path="/report/post" element={<ReportPostPage />} />
-            <Route path="/my" element={<MyPage />} />
-            <Route path="/edit/nickname" element={<EditNicknamePage />} />
-          </Routes>
-        </PersistGate>
-      </HashRouter>
+      <PersistGate persistor={persistor}>
+        <Routes>
+          <Route path="/" element={<FeedPage navermaps={navermaps} />} />
+          <Route path="/intro" element={<IntroPage />} />
+          <Route path="/statistic" element={<StatisticPage />} />
+          <Route path="/rank" element={<RankPage />} />
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/login/oauth" element={<KakaoRedirectHandler />} />
+          <Route
+            path="/report/banner"
+            element={<ReportBannerPage navermaps={navermaps} />}
+          />
+          <Route path="/report/post" element={<ReportPostPage />} />
+          <Route path="/my" element={<MyPage />} />
+          <Route path="/edit/nickname" element={<EditNicknamePage />} />
+        </Routes>
+      </PersistGate>
     </AppDiv>
   );
 }
