@@ -1,10 +1,14 @@
 import styled from "styled-components";
 import { useAppDispatch } from "../app/hooks";
-import { kakaoLoginAsync } from "../features/counter/loginSlice";
+import {
+  kakaoLoginAsync,
+  loginWithoutAccount,
+} from "../features/counter/loginSlice";
 import { theme } from "../style/theme";
 import { RiKakaoTalkFill } from "react-icons/ri";
 import TopTitleBar from "../Components/TopTitleBar";
 import logo from "../img/logo_motion.gif";
+import { useNavigate } from "react-router-dom";
 
 const Page = styled(theme.style.page)`
   display: flex;
@@ -28,6 +32,7 @@ const LoginButton = styled(theme.style.defaultButton)`
 
 function LoginPage() {
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
 
   return (
     <Page>
@@ -45,9 +50,23 @@ function LoginPage() {
       <theme.style.flexOne />
       <theme.style.flexOne />
 
-      <LoginButton onClick={() => dispatch(kakaoLoginAsync())}>
+      <LoginButton
+        style={{ marginBottom: 10 }}
+        onClick={() => dispatch(kakaoLoginAsync())}
+      >
         <RiKakaoTalkFill style={{ marginRight: 10 }} />
         <span>카카오로 시작하기</span>
+      </LoginButton>
+
+      <LoginButton
+        style={{ backgroundColor: "#d7d7d7" }}
+        onClick={() => {
+          dispatch(loginWithoutAccount());
+          let targetPath = window.localStorage.getItem("targetPath");
+          targetPath ? navigate(targetPath) : navigate("/");
+        }}
+      >
+        <span>로그인 없이 시작하기</span>
       </LoginButton>
       <theme.style.smallDescription style={{ marginBottom: -6 }}>
         본 서비스는 어떠한 개인정보도 수집하지 않습니다.

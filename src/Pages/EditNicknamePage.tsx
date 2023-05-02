@@ -61,11 +61,11 @@ export default function EditNicknamePage() {
       <theme.style.searchInput
         placeholder="닉네임을 입력하세요"
         onChange={(e) => dispatch(setUserName(e.target.value))}
-        maxLength={8}
+        maxLength={10}
         value={userName}
       />
       <theme.style.smallDescription style={{ marginBottom: 17 }}>
-        {userName ? userName.length : 0}/8
+        {userName ? userName.length : 0}/10
       </theme.style.smallDescription>
 
       <theme.style.flexOne />

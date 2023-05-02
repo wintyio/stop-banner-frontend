@@ -135,6 +135,11 @@ export const loginSlice = createSlice({
     },
     setUserName: (state, action) => {
       state.newUserName = action.payload;
+    },
+    loginWithoutAccount: (state) => {
+      state.status = "logged in";
+      state.wintyAccessToken = "eyJ0eXBlIjoiand0IiwiYWxnIjoiSFMyNTYifQ.eyJzdWIiOiIwIiwiaWF0IjoxNjgyOTg5NzEzLCJleHAiOjE2ODQ4MTcxMDF9.FoXgiUBSB7CuDuGcIz1D5gk3zw5PHJl7itv9_Old1Ho";
+      state.currentUserName = "익명의 사냥꾼";
     }
   },
   extraReducers: (builder) => {
@@ -192,7 +197,7 @@ export const loginSlice = createSlice({
   },
 });
 
-export const { logout, initUserName, setUserName } = loginSlice.actions;
+export const { logout, initUserName, setUserName, loginWithoutAccount } = loginSlice.actions;
 
 export const selectCurrentUserName = (state: RootState) => state.login.currentUserName;
 export const selectNewUserName = (state: RootState) => state.login.newUserName;

@@ -126,6 +126,9 @@ export const statisticSlice = createSlice({
                 let jsonList = action.payload.result;
                 for (let json of jsonList) {
                     let rank = MemberRank.fromJSON(json);
+
+                    if (rank.name === "익명의 사냥꾼") continue;  // 익명 예외 처리
+
                     rankList.push(rank);
                 }
 

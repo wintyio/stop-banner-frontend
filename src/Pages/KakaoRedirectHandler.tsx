@@ -3,13 +3,12 @@ import { useAppDispatch, useAppSelector } from "../app/hooks";
 import {
   getKakaoAccessTokenAsync,
   getWintyAccessTokenAsync,
-  selectKakaoAccessToken,
-  selectLoginErrMsg,
-  selectLoginStatus,
 } from "../features/counter/loginSlice";
+import { useNavigate } from "react-router-dom";
 
 const KakaoRedirectHandler = () => {
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
 
   const failedLogin = (errMsg: string) => {
     window.confirm(`로그인 실패: ${errMsg}`);
@@ -35,9 +34,12 @@ const KakaoRedirectHandler = () => {
       getWintyAccessTokenAsync(kakaoAccessToken)
     );
 
-    if (getWintyAccessTokenAsync.fulfilled.match(wintyAccessToken))
-      window.location.href = "./";
-    else failedLogin("윈티 엑세스 토큰 획득 실패");
+    if (getWintyAccessTokenAsync.fulfilled.match(wintyAccessToken)) {
+      let targetPath = window.localStorage.getItem("targetPath");
+
+      if (targetPath) window.location.href = "./#" + targetPath;
+      else window.location.href = "./";
+    } else failedLogin("윈티 엑세스 토큰 획득 실패");
   };
 
   useEffect(() => {

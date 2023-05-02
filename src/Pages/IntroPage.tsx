@@ -103,7 +103,7 @@ export default function IntroPage() {
           <strong>15일의 표시기간 </strong>
           이외의
           <br />
-          규정을 적용 받지 않습니다.
+          어떠한 규정도 적용 받지 않습니다.
           <br />
           <br />
           이에 따른 부작용을 알리고,

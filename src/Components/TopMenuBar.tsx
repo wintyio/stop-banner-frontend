@@ -64,7 +64,7 @@ export default function TopMenuBar(props: TopMenuBarProps) {
       <div>
         <Button
           onClick={() => navigate("/")}
-          selected={props.selectedPageName == "피드"}
+          selected={props.selectedPageName === "피드"}
         >
           피드
         </Button>
@@ -84,16 +84,26 @@ export default function TopMenuBar(props: TopMenuBarProps) {
         </Button>
 
         <Button
-          onClick={() =>
-            checkLogin() ? navigate("/report/banner") : navigate("/login")
-          }
+          onClick={() => {
+            if (checkLogin()) navigate("/report/banner");
+            else {
+              window.localStorage.setItem("targetPath", "/report/banner");
+              navigate("/login");
+            }
+          }}
           selected={props.selectedPageName === "제보하기"}
         >
           제보하기
         </Button>
 
         <Button
-          onClick={() => (checkLogin() ? navigate("/my") : navigate("/login"))}
+          onClick={() => {
+            if (checkLogin()) navigate("/my");
+            else {
+              window.localStorage.setItem("targetPath", "/my");
+              navigate("/login");
+            }
+          }}
           selected={props.selectedPageName === "MY"}
         >
           MY

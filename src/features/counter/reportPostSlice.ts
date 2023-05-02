@@ -36,7 +36,7 @@ export const submitReportPost = createAsyncThunk("reportPost/submitReportPost",
 
     let res = await axios.post(url, data, headers);
 
-    return (res.data.code === 1000) ? "success" : rejectWithValue(res.data);
+    return (res.data.code === 1000) ? "success" : rejectWithValue(res.data.message);
   });
 
 export const reportPostSlice = createSlice({
